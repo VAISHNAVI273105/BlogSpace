@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Something Beautiful – BlogSpace</title>
+  <meta name="description" content="A quiet, distraction-free writing canvas for thoughtful essays and stories on BlogSpace.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body style="background: var(--bg-page);">
+
+  <!-- =========================================================================
+       EDITOR TOP BAR
+       ========================================================================= -->
+  <header class="editor-top-nav">
+    <div class="editor-nav-left">
+      <a href="dashboard.html" class="btn btn-outline btn-sm" id="backToDashBtn">
+        <i data-lucide="arrow-left" style="width: 15px; height: 15px;"></i>
+        <span>Studio</span>
+      </a>
+      <h1 class="editor-page-heading" id="editorPageHeading">Create Something Beautiful</h1>
+    </div>
+
+    <div class="editor-nav-actions">
+      <!-- Preview Action -->
+      <button type="button" class="btn btn-outline btn-sm" id="previewBlogBtn" title="Preview article appearance">
+        <i data-lucide="eye" style="width: 15px; height: 15px;"></i>
+        <span>Preview</span>
+      </button>
+
+      <!-- Save Draft Action -->
+      <button type="button" class="btn btn-secondary btn-sm" id="saveDraftBtn" title="Preserve manuscript as draft">
+        <i data-lucide="save" style="width: 15px; height: 15px;"></i>
+        <span>Save Draft</span>
+      </button>
+
+      <!-- Publish Action (Deep Burgundy) -->
+      <button type="button" class="btn btn-primary btn-sm" id="publishBlogBtn" title="Publish to the public circle">
+        <i data-lucide="send" style="width: 15px; height: 15px;"></i>
+        <span>Publish Story</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       DISTRACTION-FREE EDITORIAL STUDIO
+       ========================================================================= -->
+  <main class="editor-container">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <p style="font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--secondary-text);">
+        "Every great story begins with an idea."
+      </p>
+    </div>
+
+    <div class="editor-card">
+      <form id="blogEditorForm" novalidate onsubmit="return false;">
+        
+        <!-- Cover Image Visual & Presets -->
+        <div class="form-group">
+          <label class="form-label">Story Cover Visual</label>
+          <div class="cover-image-preview-box" id="coverPreviewContainer">
+            <img src="" alt="Cover Preview" id="coverImgPreview" style="display: none;">
+            <div class="cover-image-placeholder" id="coverPlaceholder">
+              <i data-lucide="image" style="width: 36px; height: 36px; stroke-width: 1.5;"></i>
+              <p style="font-size: 0.925rem; font-weight: 500; font-family: var(--font-serif);">Select an editorial visual</p>
+              <p style="font-size: 0.8rem; color: var(--secondary-text);">Choose a botanical or lifestyle preset below, or paste a custom link</p>
+            </div>
+          </div>
+
+          <!-- Earthy Presets -->
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="font-size: 0.8rem; color: var(--secondary-text); font-weight: 500;">Editorial Presets:</span>
+            <div class="cover-presets-row" id="coverPresetsContainer">
+              <!-- Dynamically populated via script.js -->
+            </div>
+          </div>
+
+          <!-- Custom URL Input -->
+          <div style="margin-top: 0.85rem;">
+            <input 
+              type="url" 
+              class="form-control" 
+              id="blogCoverUrlInput" 
+              placeholder="Or enter an image URL (https://...)" 
+              value="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80"
+            >
+          </div>
+        </div>
+
+        <!-- Meta Grid: Category & Excerpt -->
+        <div class="editor-meta-grid">
+          <!-- Category Select -->
+          <div class="form-group">
+            <label for="blogCategorySelect" class="form-label">Category <span class="req">*</span></label>
+            <select id="blogCategorySelect" class="form-control" required>
+              <option value="" disabled>Choose a Category</option>
+              <option value="Lifestyle" selected>Lifestyle &amp; Rituals</option>
+              <option value="Beauty">Natural Beauty</option>
+              <option value="Fashion">Slow Fashion</option>
+              <option value="Food">Artisanal Food</option>
+              <option value="Travel">Travel &amp; Escapes</option>
+              <option value="Creativity">Creative Arts &amp; Craft</option>
+            </select>
+            <div class="form-error-msg"></div>
+          </div>
+
+          <!-- Short Excerpt -->
+          <div class="form-group">
+            <label for="blogExcerptInput" class="form-label">Editorial Subtitle / Teaser</label>
+            <input 
+              type="text" 
+              id="blogExcerptInput" 
+              class="form-control" 
+              placeholder="A short, evocative sentence for reader previews..."
+            >
+            <span class="form-hint">Displayed on magazine cards and curated feeds.</span>
+          </div>
+        </div>
+
+        <!-- Elegant Serif Title Input -->
+        <div class="form-group">
+          <input 
+            type="text" 
+            id="blogTitleInput" 
+            class="editor-title-input" 
+            placeholder="Title of your story..." 
+            autocomplete="off"
+            required
+          >
+          <div class="form-error-msg"></div>
+        </div>
+
+        <!-- Markdown Formatting Toolbar -->
+        <div class="editor-toolbar" role="toolbar" aria-label="Editor Formatting Toolbar">
+          <button type="button" class="toolbar-btn" data-action="bold" title="Bold (**prose**)">
+            <i data-lucide="bold" style="width: 15px; height: 15px;"></i>
+          </button>
+          <button type="button" class="toolbar-btn" data-action="italic" title="Italic (*prose*)">
+            <i data-lucide="italic" style="width: 15px; height: 15px;"></i>
+          </button>
+          <span class="toolbar-divider"></span>
+          <button type="button" class="toolbar-btn" data-action="h2" title="Section Heading (## Heading)">
+            <i data-lucide="heading-2" style="width: 15px; height: 15px;"></i>
+          </button>
+          <button type="button" class="toolbar-btn" data-action="h3" title="Sub-Chapter (### Heading)">
+            <i data-lucide="heading-3" style="width: 15px; height: 15px;"></i>
+          </button>
+          <span class="toolbar-divider"></span>
+          <button type="button" class="toolbar-btn" data-action="quote" title="Pull Quote (> Quote)">
+            <i data-lucide="quote" style="width: 15px; height: 15px;"></i>
+          </button>
+          <button type="button" class="toolbar-btn" data-action="list" title="Reflective List (- item)">
+            <i data-lucide="list" style="width: 15px; height: 15px;"></i>
+          </button>
+          <button type="button" class="toolbar-btn" data-action="code" title="Excerpt Snippet (```)">
+            <i data-lucide="code" style="width: 15px; height: 15px;"></i>
+          </button>
+        </div>
+
+        <!-- Main Prose Textarea -->
+        <div class="form-group">
+          <textarea 
+            id="blogContentInput" 
+            class="editor-content-area" 
+            placeholder="Begin your narrative here... Allow your thoughts to unfold with unhurried care."
+            required
+          ></textarea>
+          <div class="form-error-msg"></div>
+        </div>
+
+        <!-- Word Count & Reading Time Footer -->
+        <div class="editor-stats-footer">
+          <span id="wordCountDisplay">0 words &bull; 0 characters</span>
+          <span id="readTimeDisplay" style="font-weight: 500; color: var(--deep-burgundy);">~1 min read</span>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       MODAL: FULL PREVIEW BEFORE PUBLISHING
+       ========================================================================= -->
+  <div class="modal-overlay" id="storyPreviewModal" role="dialog" aria-modal="true" aria-labelledby="previewModalTitle">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 id="previewModalTitle">Editorial Preview</h3>
+        <button class="modal-close-btn" onclick="closeModal('storyPreviewModal')" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Content inserted dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" onclick="closeModal('storyPreviewModal')">Continue Writing</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

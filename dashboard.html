@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Author Studio – BlogSpace</title>
+  <meta name="description" content="Your quiet creative publishing space, drafts, and readership impressions on BlogSpace.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body style="background: var(--bg-page);">
+
+  <div class="dashboard-layout">
+    <!-- =======================================================================
+         SIDEBAR: EDITORIAL SANCTUARY
+         ======================================================================= -->
+    <aside class="dash-sidebar" aria-label="Editorial Studio Navigation">
+      <!-- Sidebar Brand Header -->
+      <div class="dash-sidebar-header">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-logo-icon">
+            <i data-lucide="feather"></i>
+          </div>
+          <span>Blog<span class="highlight">Space</span></span>
+        </a>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="dash-nav">
+        <span class="dash-nav-heading">Studio Desk</span>
+        <a href="dashboard.html" class="dash-nav-item active">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Overview</span>
+        </a>
+        <a href="#myBlogsSection" class="dash-nav-item">
+          <i data-lucide="book-open"></i>
+          <span>My Stories</span>
+        </a>
+        <a href="create-blog.html" class="dash-nav-item">
+          <i data-lucide="edit-3"></i>
+          <span>Create Story</span>
+        </a>
+        <a href="javascript:void(0)" class="dash-nav-item" onclick="showToast('Author Profile', 'Alex Morgan &bull; Editor-in-Chief &amp; Essayist', 'info')">
+          <i data-lucide="user"></i>
+          <span>Profile</span>
+        </a>
+
+        <span class="dash-nav-heading" style="margin-top: 1.5rem;">The Journal</span>
+        <a href="index.html" class="dash-nav-item">
+          <i data-lucide="home"></i>
+          <span>Public Journal</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar User Footer -->
+      <div class="dash-sidebar-footer">
+        <div class="dash-user-profile">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Author Avatar" class="dash-user-avatar user-avatar-display">
+          <div class="dash-user-info">
+            <div class="dash-user-name user-name-display">Alex Morgan</div>
+            <div class="dash-user-email user-email-display">alex@blogspace.io</div>
+          </div>
+        </div>
+
+        <button onclick="logoutUser()" class="btn btn-outline btn-sm btn-block">
+          <i data-lucide="log-out" style="width: 15px; height: 15px;"></i> Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- =======================================================================
+         MAIN EDITORIAL CONTENT AREA
+         ======================================================================= -->
+    <div class="dash-main-area">
+      <!-- Top Bar -->
+      <header class="dash-topbar">
+        <div class="dash-topbar-left">
+          <button class="sidebar-toggle-btn" aria-label="Toggle mobile studio menu">
+            <i data-lucide="menu"></i>
+          </button>
+
+          <!-- Topbar Search -->
+          <div class="topbar-search-wrapper">
+            <i data-lucide="search" class="search-icon" style="width: 15px; height: 15px;"></i>
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Search your stories..." 
+              id="dashboardSearchInput"
+              aria-label="Search stories"
+            >
+          </div>
+        </div>
+
+        <div class="dash-topbar-right">
+          <a href="create-blog.html" class="btn btn-primary btn-sm">
+            <i data-lucide="edit-3"></i> Write Story
+          </a>
+
+          <!-- User Chip -->
+          <div class="nav-user-chip" title="Active Author">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Avatar" class="nav-user-avatar user-avatar-display">
+            <span class="user-name-display">Alex</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Studio Body -->
+      <main class="dash-content">
+        <!-- Editorial Welcome Greeting -->
+        <div class="dash-welcome-banner">
+          <div class="dash-welcome-text">
+            <h1>Good Morning, <span class="user-name-display">Writer</span>.</h1>
+            <p>Your creative space, your stories, your journey.</p>
+          </div>
+          <a href="create-blog.html" class="btn btn-primary btn-lg">
+            <i data-lucide="feather"></i> Create New Story
+          </a>
+        </div>
+
+        <!-- Minimal Elegant Statistics -->
+        <div class="dash-stats-grid">
+          <!-- Total Stories -->
+          <div class="stat-card">
+            <div class="stat-icon-wrap burgundy">
+              <i data-lucide="file-text"></i>
+            </div>
+            <div class="stat-details">
+              <h3 id="statTotalBlogs">0</h3>
+              <p>Total Stories</p>
+              <span class="stat-tag">All articles in storage</span>
+            </div>
+          </div>
+
+          <!-- Published Stories -->
+          <div class="stat-card">
+            <div class="stat-icon-wrap sage">
+              <i data-lucide="check-circle-2"></i>
+            </div>
+            <div class="stat-details">
+              <h3 id="statPublishedBlogs">0</h3>
+              <p>Published Stories</p>
+              <span class="stat-tag" style="color: var(--deep-burgundy);">Live in public journal</span>
+            </div>
+          </div>
+
+          <!-- Drafts -->
+          <div class="stat-card">
+            <div class="stat-icon-wrap cream">
+              <i data-lucide="clock"></i>
+            </div>
+            <div class="stat-details">
+              <h3 id="statDraftBlogs">0</h3>
+              <p>Drafts</p>
+              <span class="stat-tag" style="color: var(--secondary-text);">Unfinished manuscripts</span>
+            </div>
+          </div>
+
+          <!-- Total Views -->
+          <div class="stat-card">
+            <div class="stat-icon-wrap charcoal">
+              <i data-lucide="eye"></i>
+            </div>
+            <div class="stat-details">
+              <h3 id="statTotalViews">0</h3>
+              <p>Total Views</p>
+              <span class="stat-tag">(organic impressions)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stories Management Panel -->
+        <section class="dash-panel" id="myBlogsSection">
+          <div class="dash-panel-header">
+            <h2>My Stories</h2>
+
+            <!-- Filter Controls -->
+            <div class="dash-filter-controls">
+              <div class="filter-tab-pills">
+                <button class="filter-pill active" data-status="all">All Stories</button>
+                <button class="filter-pill" data-status="published">Published</button>
+                <button class="filter-pill" data-status="draft">Drafts</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table Container -->
+          <div id="dashboardTableContainer" style="overflow-x: auto;">
+            <table class="blogs-table">
+              <thead>
+                <tr>
+                  <th>Story Title</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Impressions</th>
+                  <th style="text-align: right; padding-right: 2rem;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="dashboardBlogsTableBody">
+                <!-- Dynamically populated via script.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State Container -->
+          <div id="dashboardEmptyState" class="empty-state" style="display: none;">
+            <div class="empty-state-icon">
+              <i data-lucide="feather"></i>
+            </div>
+            <h3>Your Canvas is Blank</h3>
+            <p>No stories currently match this filter. Take a breath and begin your next thoughtful narrative.</p>
+            <a href="create-blog.html" class="btn btn-primary">
+              <i data-lucide="feather"></i> Write a New Story
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: DELETE CONFIRMATION
+       ========================================================================= -->
+  <div class="modal-overlay" id="deleteConfirmModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 id="deleteModalTitle" style="color: var(--danger); display: flex; align-items: center; gap: 0.5rem;">
+          <i data-lucide="alert-triangle"></i> Remove Story
+        </h3>
+        <button class="modal-close-btn" onclick="closeModal('deleteConfirmModal')" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 1.05rem; color: var(--text-main); margin-bottom: 0.5rem; font-family: var(--font-serif);">
+          Are you sure you wish to delete this story?
+        </p>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+          This will permanently remove the manuscript from your browser storage. This action cannot be reversed.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" onclick="closeModal('deleteConfirmModal')">Cancel</button>
+        <button class="btn btn-danger btn-sm" id="confirmDeleteBtn">
+          <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Remove Permanently
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: FULL STORY PREVIEW
+       ========================================================================= -->
+  <div class="modal-overlay" id="storyPreviewModal" role="dialog" aria-modal="true" aria-labelledby="dashPreviewModalTitle">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 id="dashPreviewModalTitle">Story Preview</h3>
+        <button class="modal-close-btn" onclick="closeModal('storyPreviewModal')" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Content inserted dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" onclick="closeModal('storyPreviewModal')">Close Preview</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

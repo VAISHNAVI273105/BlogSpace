@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlogSpace – Stories That Inspire. Ideas That Stay.</title>
+  <meta name="description" content="A thoughtful editorial space for stories, discoveries, creativity, and everyday inspiration.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- =========================================================================
+       EDITORIAL NAVIGATION
+       ========================================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-container">
+      <!-- Refined Brand Emblem -->
+      <a href="index.html" class="brand-logo" aria-label="BlogSpace Home">
+        <div class="brand-logo-icon">
+          <i data-lucide="feather"></i>
+        </div>
+        <span>Blog<span class="highlight">Space</span></span>
+      </a>
+
+      <!-- Minimal Navigation Links -->
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link active">Journal</a>
+        <a href="#exploreSection" class="nav-link">Explore Stories</a>
+        <a href="#categoriesSection" class="nav-link">Categories</a>
+        <a href="#highlightSection" class="nav-link">Editorial</a>
+        <a href="#aboutSection" class="nav-link">About</a>
+      </nav>
+
+      <!-- Nav Actions (Dynamic based on login state) -->
+      <div class="nav-actions">
+        <a href="login.html" class="nav-link">Sign In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+
+      <!-- Mobile Hamburger Menu Button -->
+      <button class="mobile-nav-toggle" aria-label="Toggle Navigation Menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-nav-menu">
+      <a href="index.html" class="nav-link active">Journal</a>
+      <a href="#exploreSection" class="nav-link">Explore Stories</a>
+      <a href="#categoriesSection" class="nav-link">Categories</a>
+      <a href="#highlightSection" class="nav-link">Editorial</a>
+      <a href="#aboutSection" class="nav-link">About</a>
+      <div class="mobile-actions">
+        <a href="login.html" class="btn btn-outline btn-block">Sign In</a>
+        <a href="register.html" class="btn btn-primary btn-block">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- =========================================================================
+         SOPHISTICATED EDITORIAL HERO SECTION
+         ========================================================================= -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-grid">
+          <!-- Left Hero Column -->
+          <div class="hero-content">
+            <div class="hero-badge">
+              <i data-lucide="sun" class="sparkle-icon" style="width: 15px; height: 15px;"></i>
+              <span>An Independent Editorial Publication</span>
+            </div>
+
+            <h1 class="hero-title">
+              Stories That Inspire. <br>
+              <span class="text-italic">Ideas That Stay.</span>
+            </h1>
+
+            <p class="hero-desc">
+              A thoughtful space for stories, discoveries, creativity and everyday inspiration. Crafted for intentional writers, curious readers, and seekers of timeless perspectives.
+            </p>
+
+            <div class="hero-cta-group">
+              <a href="#exploreSection" class="btn btn-primary btn-lg">
+                <i data-lucide="compass"></i> Explore Stories
+              </a>
+              <a href="register.html" id="heroStartWritingBtn" class="btn btn-outline btn-lg">
+                <i data-lucide="edit-3"></i> Start Writing
+              </a>
+            </div>
+
+            <!-- Authentic Editorial Impressions -->
+            <div class="hero-stats-row">
+              <div class="hero-stat-item">
+                <h4>640+</h4>
+                <p>Curated Essays</p>
+              </div>
+              <div class="hero-stat-item">
+                <h4>82K</h4>
+                <p>Devoted Readers</p>
+              </div>
+              <div class="hero-stat-item">
+                <h4>100%</h4>
+                <p>Distraction-Free</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Editorial Photography Mockup -->
+          <div class="hero-visual">
+            <div class="hero-mockup-card">
+              <div class="hero-card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80" alt="Linen notebook, morning coffee, and dried botanicals" loading="eager">
+              </div>
+              <span class="badge badge-lifestyle" style="margin-bottom: 0.65rem;">Editor's Selection</span>
+              <h3 style="font-size: 1.35rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.45rem;">
+                The Art of Intentional Living: Cultivating Stillness in Everyday Rituals
+              </h3>
+              <p style="font-size: 0.885rem; color: var(--text-muted); line-height: 1.65;">
+                Why the quietest morning moments—a poured cup of tea, open linen pages, and soft sunlight—shape our creative resilience.
+              </p>
+            </div>
+
+            <!-- Soft Editorial Accent Pills -->
+            <div class="floating-pill pill-one">
+              <div class="pill-icon trending">
+                <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+              </div>
+              <div class="pill-text">
+                <h5>Curator's Choice</h5>
+                <p>Read by 12,000+ this week</p>
+              </div>
+            </div>
+
+            <div class="floating-pill pill-two">
+              <div class="pill-icon views">
+                <i data-lucide="feather" style="width: 16px; height: 16px;"></i>
+              </div>
+              <div class="pill-text">
+                <h5>Slow Journalism</h5>
+                <p>Timeless over timely</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         POPULAR CATEGORIES (Muted Sage & Warm Beige)
+         ========================================================================= -->
+    <section class="section section-sm" id="categoriesSection" style="background: var(--light-sage); border-bottom: 1px solid var(--border-color);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">
+            <i data-lucide="layers" style="width: 13px; height: 13px;"></i> Thematic Pillars
+          </span>
+          <h2 class="section-title">Popular Categories</h2>
+          <p class="section-subtitle">Discover perspectives across slow living, natural wellness, artful craft, and mindful travel.</p>
+        </div>
+
+        <div class="categories-grid">
+          <!-- 1. Lifestyle -->
+          <div class="category-card" onclick="renderHomeBlogs('Lifestyle'); document.getElementById('exploreSection').scrollIntoView({behavior: 'smooth'})">
+            <div class="category-icon-box">
+              <i data-lucide="coffee"></i>
+            </div>
+            <h3>Lifestyle</h3>
+            <p>Rhythms, rituals &amp; slow living</p>
+          </div>
+
+          <!-- 2. Beauty -->
+          <div class="category-card" onclick="renderHomeBlogs('Beauty'); document.getElementById('exploreSection').scrollIntoView({behavior: 'smooth'})">
+            <div class="category-icon-box">
+              <i data-lucide="sun"></i>
+            </div>
+            <h3>Beauty</h3>
+            <p>Botanicals &amp; natural care</p>
+          </div>
+
+          <!-- 3. Fashion -->
+          <div class="category-card" onclick="renderHomeBlogs('Fashion'); document.getElementById('exploreSection').scrollIntoView({behavior: 'smooth'})">
+            <div class="category-icon-box">
+              <i data-lucide="feather"></i>
+            </div>
+            <h3>Fashion</h3>
+            <p>Organic linen &amp; capsule style</p>
+          </div>
+
+          <!-- 4. Food -->
+          <div class="category-card" onclick="renderHomeBlogs('Food'); document.getElementById('exploreSection').scrollIntoView({behavior: 'smooth'})">
+            <div class="category-icon-box">
+              <i data-lucide="heart"></i>
+            </div>
+            <h3>Food</h3>
+            <p>Sourdough, olive oil &amp; market finds</p>
+          </div>
+
+          <!-- 5. Travel -->
+          <div class="category-card" onclick="renderHomeBlogs('Travel'); document.getElementById('exploreSection').scrollIntoView({behavior: 'smooth'})">
+            <div class="category-icon-box">
+              <i data-lucide="globe"></i>
+            </div>
+            <h3>Travel</h3>
+            <p>Coastal roads &amp; quiet retreats</p>
+          </div>
+
+          <!-- 6. Creativity -->
+          <div class="category-card" onclick="renderHomeBlogs('Creativity'); document.getElementById('exploreSection').scrollIntoView({behavior: 'smooth'})">
+            <div class="category-icon-box">
+              <i data-lucide="palette"></i>
+            </div>
+            <h3>Creativity</h3>
+            <p>Ceramics, prose &amp; raw earth</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         FEATURED STORIES (Editorial Magazine Grid)
+         ========================================================================= -->
+    <section class="section" id="exploreSection">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">
+            <i data-lucide="book-open" style="width: 13px; height: 13px;"></i> The Reading Room
+          </span>
+          <h2 class="section-title">Discover Inspiring Stories</h2>
+          <p class="section-subtitle">Long-form prose, personal observations, and mindful reflections from thoughtful creators.</p>
+        </div>
+
+        <!-- Filter Chips Bar -->
+        <div class="category-filter-bar">
+          <button class="category-chip active" data-category="all">All Stories</button>
+          <button class="category-chip" data-category="Lifestyle">Lifestyle</button>
+          <button class="category-chip" data-category="Beauty">Beauty</button>
+          <button class="category-chip" data-category="Fashion">Fashion</button>
+          <button class="category-chip" data-category="Food">Food</button>
+          <button class="category-chip" data-category="Travel">Travel</button>
+          <button class="category-chip" data-category="Creativity">Creativity</button>
+        </div>
+
+        <!-- 6+ Interactive Editorial Blog Cards -->
+        <div class="blog-grid" id="featuredBlogGrid">
+          <!-- Dynamically populated via script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         EDITORIAL HIGHLIGHT SECTION
+         ========================================================================= -->
+    <section class="editorial-highlight-section" id="highlightSection">
+      <div class="container">
+        <div class="editorial-highlight-card">
+          <div class="highlight-img-wrap">
+            <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1000&q=80" alt="Sunlit terracotta seaside village in Italy">
+          </div>
+          <div class="highlight-content">
+            <span class="badge badge-travel">Featured Dispatch</span>
+            <h3>Hidden Terracotta Alleys: Solitary Journeys Along the Ligurian Coast</h3>
+            <p>
+              Stepping away from crowded train platforms into sun-warmed stone stairways, salt breezes, and forgotten coastal sanctuaries. A meditation on solitary wandering and reclaiming inner quiet.
+            </p>
+            <div>
+              <button class="btn btn-primary" onclick="openStoryPreviewModal('blog_5')">
+                <i data-lucide="book-open"></i> Read Full Dispatch
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         BRAND PILLARS: WHY BLOGSPACE?
+         ========================================================================= -->
+    <section class="section" id="aboutSection">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">
+            <i data-lucide="feather" style="width: 13px; height: 13px;"></i> The Ethos
+          </span>
+          <h2 class="section-title">An Antidote to Digital Noise</h2>
+          <p class="section-subtitle">We stripped away invasive tracking, autoplay noise, and clickbait to create a peaceful sanctuary for your writing.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-box">
+            <div class="feature-icon-wrap">
+              <i data-lucide="pen-tool"></i>
+            </div>
+            <h3>Distraction-Free Sanctuary</h3>
+            <p>An uncluttered writing space that encourages deep contemplation. Markdown formatting, quiet word counts, and natural typography.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrap">
+              <i data-lucide="heart"></i>
+            </div>
+            <h3>Thoughtful Readership</h3>
+            <p>Reach readers who genuinely cherish slow journalism, tactile prose, and authentic personal expression over ephemeral social feeds.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon-wrap">
+              <i data-lucide="coffee"></i>
+            </div>
+            <h3>Organic Pace</h3>
+            <p>No algorithmic penalties for taking your time. Publish once a week or once a season; your stories remain timelessly discoverable.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         FINAL CALL TO ACTION BANNER
+         ========================================================================= -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="cta-banner-wrap">
+          <h2>Have a story worth sharing?</h2>
+          <p>Whether it is an intimate reflection, a recipe passed through generations, or a creative study, your voice has a home on BlogSpace.</p>
+          <div class="cta-banner-actions">
+            <a href="register.html" class="btn btn-cream btn-lg">
+              <i data-lucide="feather"></i> Start Writing Today
+            </a>
+            <a href="login.html" class="btn btn-cream-outline btn-lg">
+              <i data-lucide="log-in"></i> Sign In to Studio
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       FOOTER (Deep Burgundy & Warm Cream)
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Info -->
+        <div class="footer-col footer-brand">
+          <a href="index.html" class="brand-logo">
+            <div class="brand-logo-icon">
+              <i data-lucide="feather"></i>
+            </div>
+            <span>Blog<span class="highlight" style="color: var(--warm-beige);">Space</span></span>
+          </a>
+          <p class="footer-desc">
+            A boutique editorial publishing journal celebrating quiet crafts, honest storytelling, and everyday discoveries.
+          </p>
+          <div class="footer-social-links">
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Instagram">
+              <i data-lucide="heart"></i>
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Twitter">
+              <i data-lucide="twitter"></i>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="GitHub">
+              <i data-lucide="github"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="LinkedIn">
+              <i data-lucide="linkedin"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="footer-col">
+          <h4>Exploration</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">The Journal</a></li>
+            <li><a href="#exploreSection">Explore Stories</a></li>
+            <li><a href="#highlightSection">Curated Highlight</a></li>
+            <li><a href="dashboard.html">Author Studio</a></li>
+            <li><a href="create-blog.html">Write a Story</a></li>
+          </ul>
+        </div>
+
+        <!-- Thematic Categories -->
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links-list">
+            <li><a href="#exploreSection" onclick="renderHomeBlogs('Lifestyle')">Lifestyle &amp; Rituals</a></li>
+            <li><a href="#exploreSection" onclick="renderHomeBlogs('Beauty')">Natural Beauty</a></li>
+            <li><a href="#exploreSection" onclick="renderHomeBlogs('Fashion')">Slow Fashion</a></li>
+            <li><a href="#exploreSection" onclick="renderHomeBlogs('Food')">Artisanal Food</a></li>
+            <li><a href="#exploreSection" onclick="renderHomeBlogs('Travel')">Travel &amp; Escapes</a></li>
+            <li><a href="#exploreSection" onclick="renderHomeBlogs('Creativity')">Creative Arts</a></li>
+          </ul>
+        </div>
+
+        <!-- Sunday Digest Subscription -->
+        <div class="footer-col footer-newsletter">
+          <h4>Sunday Journal Digest</h4>
+          <p>Receive our most resonant essays, recipes, and studio notes in your inbox every Sunday morning.</p>
+          <form class="newsletter-form" id="newsletterForm">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required>
+            <button type="submit" class="btn btn-secondary btn-sm" aria-label="Subscribe">
+              <i data-lucide="send"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="footer-bottom-row">
+        <div>&copy; 2026 BlogSpace. All rights reserved. Earthy Luxe Editorial Design.</div>
+        <div>Crafted with Semantic HTML5, CSS3 &amp; Vanilla JavaScript.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       MODAL: FULL STORY READER
+       ========================================================================= -->
+  <div class="modal-overlay" id="storyPreviewModal" role="dialog" aria-modal="true" aria-labelledby="storyModalTitle">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 id="storyModalTitle">Editorial Story</h3>
+        <button class="modal-close-btn" onclick="closeModal('storyPreviewModal')" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Content inserted dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" onclick="closeModal('storyPreviewModal')">Close Story</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

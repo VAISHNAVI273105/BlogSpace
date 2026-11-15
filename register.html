@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join the Circle – BlogSpace</title>
+  <meta name="description" content="Create your author account on BlogSpace. A thoughtful home for stories, craft, and ideas.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="auth-page-wrapper">
+    <!-- =======================================================================
+         LEFT SECTION: EDITORIAL SHOWCASE
+         ======================================================================= -->
+    <div class="auth-showcase-side">
+      <!-- Top Brand Logo -->
+      <a href="index.html" class="brand-logo">
+        <div class="brand-logo-icon">
+          <i data-lucide="feather"></i>
+        </div>
+        <span>Blog<span class="highlight">Space</span></span>
+      </a>
+
+      <!-- Middle Content -->
+      <div class="auth-showcase-content">
+        <h1>Join a Circle of <br><span class="highlight">Mindful Thinkers.</span></h1>
+        <p>
+          Publish stories that invite contemplation. Whether you explore sustainable fashion, botanical studies, ceramic arts, or quiet philosophy, your voice is honored here.
+        </p>
+
+        <!-- Editorial Visual Frame -->
+        <div class="auth-editorial-img-box">
+          <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=700&q=80" alt="Amber botanical bottles on natural warm stone">
+        </div>
+
+        <div class="auth-feature-pills">
+          <div class="auth-feature-item">
+            <div class="check-icon"><i data-lucide="check" style="width: 14px; height: 14px;"></i></div>
+            <span>No paywalls or aggressive popups for your readers</span>
+          </div>
+          <div class="auth-feature-item">
+            <div class="check-icon"><i data-lucide="check" style="width: 14px; height: 14px;"></i></div>
+            <span>Warm, refined typography inspired by print editorial magazines</span>
+          </div>
+          <div class="auth-feature-item">
+            <div class="check-icon"><i data-lucide="check" style="width: 14px; height: 14px;"></i></div>
+            <span>Immediate publishing with full LocalStorage privacy</span>
+          </div>
+          <div class="auth-feature-item">
+            <div class="check-icon"><i data-lucide="check" style="width: 14px; height: 14px;"></i></div>
+            <span>100% free membership for evaluation and writing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial -->
+      <div class="auth-testimonial-box">
+        <p>"BlogSpace restored the sacred ritual of writing. It is the only platform that feels like an art gallery for words."</p>
+        <div class="auth-testimonial-author">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Sofia Berg">
+          <div>
+            <h5>Sofia Berg</h5>
+            <span>Ceramicist &amp; Essayist</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         RIGHT SECTION: REGISTRATION FORM
+         ======================================================================= -->
+    <div class="auth-form-side">
+      <div class="auth-form-container">
+        
+        <div class="auth-header">
+          <h2>Create Your Membership</h2>
+          <p>Join our publication in moments. No credit card required.</p>
+        </div>
+
+        <!-- Registration Form -->
+        <form id="registerForm" novalidate>
+          <!-- Full Name Input -->
+          <div class="form-group">
+            <label for="regName" class="form-label">Full Name <span class="req">*</span></label>
+            <div class="input-icon-wrapper">
+              <span class="input-icon-left"><i data-lucide="user" style="width: 17px; height: 17px;"></i></span>
+              <input 
+                type="text" 
+                id="regName" 
+                class="form-control" 
+                placeholder="e.g. Alex Morgan" 
+                autocomplete="name"
+                required
+              >
+            </div>
+            <div class="form-error-msg"></div>
+          </div>
+
+          <!-- Email Input -->
+          <div class="form-group">
+            <label for="regEmail" class="form-label">Email Address <span class="req">*</span></label>
+            <div class="input-icon-wrapper">
+              <span class="input-icon-left"><i data-lucide="mail" style="width: 17px; height: 17px;"></i></span>
+              <input 
+                type="email" 
+                id="regEmail" 
+                class="form-control" 
+                placeholder="name@domain.com" 
+                autocomplete="email"
+                required
+              >
+            </div>
+            <div class="form-error-msg"></div>
+          </div>
+
+          <!-- Password Input -->
+          <div class="form-group">
+            <label for="regPassword" class="form-label">Password <span class="req">*</span></label>
+            <div class="input-icon-wrapper">
+              <span class="input-icon-left"><i data-lucide="lock" style="width: 17px; height: 17px;"></i></span>
+              <input 
+                type="password" 
+                id="regPassword" 
+                class="form-control" 
+                placeholder="Minimum 8 characters" 
+                autocomplete="new-password"
+                required
+              >
+              <button type="button" class="password-toggle-btn" id="toggleRegPasswordBtn" aria-label="Toggle password visibility">
+                <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+              </button>
+            </div>
+            <span class="form-hint">Must be at least 8 characters.</span>
+            <div class="form-error-msg"></div>
+          </div>
+
+          <!-- Confirm Password Input -->
+          <div class="form-group">
+            <label for="regConfirmPassword" class="form-label">Confirm Password <span class="req">*</span></label>
+            <div class="input-icon-wrapper">
+              <span class="input-icon-left"><i data-lucide="shield-check" style="width: 17px; height: 17px;"></i></span>
+              <input 
+                type="password" 
+                id="regConfirmPassword" 
+                class="form-control" 
+                placeholder="Re-enter your chosen password" 
+                autocomplete="new-password"
+                required
+              >
+            </div>
+            <div class="form-error-msg"></div>
+          </div>
+
+          <!-- Terms Checkbox -->
+          <div class="form-group">
+            <label class="form-checkbox-label" for="regTerms">
+              <input type="checkbox" id="regTerms" required>
+              <span>I agree to the <a href="javascript:void(0)" style="color: var(--deep-burgundy); font-weight: 500;" onclick="showToast('Ethical Terms', 'You retain 100% intellectual copyright over all published prose.', 'info')">Terms of Craft</a> and <a href="javascript:void(0)" style="color: var(--deep-burgundy); font-weight: 500;" onclick="showToast('Privacy Promise', 'Local data is retained purely within your private browser storage.', 'info')">Privacy Ethos</a>.</span>
+            </label>
+            <div class="form-error-msg"></div>
+          </div>
+
+          <!-- Submit Button (Deep Burgundy) -->
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="regSubmitBtn">
+            <i data-lucide="feather"></i> Create Author Membership
+          </button>
+        </form>
+
+        <!-- Switch to Login Link -->
+        <p class="auth-switch-text">
+          Already a member of our publication? <a href="login.html">Sign in here</a>
+        </p>
+
+        <!-- Back to Home -->
+        <div style="text-align: center; margin-top: 1.75rem;">
+          <a href="index.html" class="nav-link" style="font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.35rem;">
+            <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i> Return to the Journal
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
