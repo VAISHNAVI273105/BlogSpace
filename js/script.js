@@ -1,6 +1,5 @@
 /**
  * ============================================================================
-<<<<<<< HEAD
  * BLOGSPACE – Earthy Luxe Editorial Platform (Full-Stack Edition)
  * Core JavaScript Application File
  * Connected with Node.js & Express.js REST APIs + Resilient Offline Fallback
@@ -173,11 +172,14 @@ const ApiService = {
         const data = await res.json();
         if (data.blog) return data.blog;
       }
+      if (res.status === 404) {
+        return null;
+      }
     } catch (e) {
       console.warn('API getBlog error:', e);
     }
     const blogs = getStoredBlogs();
-    return blogs.find(b => b.id === id) || null;
+    return blogs.find(b => (b._id === id || b.id === id || b.slug === id)) || null;
   },
 
   // Blogs: Fetch Stats
@@ -247,7 +249,7 @@ const ApiService = {
         throw new Error(data.message || 'Failed to update blog');
       }
       const blogs = getStoredBlogs();
-      const index = blogs.findIndex(b => b.id === id);
+      const index = blogs.findIndex(b => (b._id === id || b.id === id));
       if (index !== -1) {
         blogs[index] = data.blog;
         saveStoredBlogs(blogs);
@@ -277,7 +279,7 @@ const ApiService = {
         throw new Error(data.message || 'Failed to delete blog');
       }
       let blogs = getStoredBlogs();
-      blogs = blogs.filter(b => b.id !== id);
+      blogs = blogs.filter(b => (b._id !== id && b.id !== id));
       saveStoredBlogs(blogs);
       return data;
     } catch (err) {
@@ -290,24 +292,11 @@ const ApiService = {
 };
 
 // --- 3. Initial Seed Data ---
-=======
- * BLOGSPACE – Earthy Luxe Editorial Platform
- * Core JavaScript Application File
- * Theme: Muted Sage, Warm Cream, Beige & Deep Burgundy
- * ============================================================================
- */
-
-// --- 1. Earthy Luxe Editorial Seed Data ---
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 const DEFAULT_USERS = [
   {
     id: "user_demo_1",
     name: "Alex Morgan",
     email: "alex@blogspace.io",
-<<<<<<< HEAD
-=======
-    password: "password123",
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     role: "Editor-in-Chief & Essayist",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
   }
@@ -321,17 +310,7 @@ const DEFAULT_BLOGS = [
     category: "Lifestyle",
     coverImage: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
     excerpt: "Why the quietest morning moments—a poured cup of tea, open linen pages, and soft natural sunlight—shape our creative resilience.",
-<<<<<<< HEAD
     content: "We live in an era that ceaselessly demands acceleration. We are nudged to wake up with urgency, consume opinions before our feet touch the floor, and measure the value of a day strictly by its output.\n\nYet true inspiration has always demanded an opposite posture: deliberate stillness.\n\nWhen we create morning rituals grounded in tactile presence—the warmth of a handcrafted ceramic mug, the slow drift of sunlight across linen curtains, the unhurried texture of physical paper—we give our minds permission to synthesize rather than react.\n\nSlow living is not an abandonment of ambition. It is the conscious decision to anchor your days in presence, so that whatever you choose to write, create, or speak carries genuine depth.",
-=======
-    content: `We live in an era that ceaselessly demands acceleration. We are nudged to wake up with urgency, consume opinions before our feet touch the floor, and measure the value of a day strictly by its output.
-
-Yet true inspiration has always demanded an opposite posture: deliberate stillness.
-
-When we create morning rituals grounded in tactile presence—the warmth of a handcrafted ceramic mug, the slow drift of sunlight across linen curtains, the unhurried texture of physical paper—we give our minds permission to synthesize rather than react. 
-
-Slow living is not an abandonment of ambition. It is the conscious decision to anchor your days in presence, so that whatever you choose to write, create, or speak carries genuine depth.`,
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     author: {
       name: "Alex Morgan",
       role: "Editor-in-Chief",
@@ -349,15 +328,7 @@ Slow living is not an abandonment of ambition. It is the conscious decision to a
     category: "Beauty",
     coverImage: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80",
     excerpt: "Returning to botanicals, cold-pressed seed oils, and simplified routines that honor the skin's natural lipid barrier.",
-<<<<<<< HEAD
     content: "For years, the beauty industry convinced us that ten-step regimens and harsh synthetic exfoliants were prerequisites for healthy skin. In reality, modern dermatology and ancient herbalism agree on a simpler truth: restraint is restorative.\n\nBy turning to cold-pressed botanical oils like camellia and jojoba, raw squalane, and soothing floral waters, we allow the skin barrier to recalibrate.\n\nA mindful routine isn't just about topical nourishment—it is five minutes at dusk where you look in the mirror with gratitude rather than correction.",
-=======
-    content: `For years, the beauty industry convinced us that ten-step regimens and harsh synthetic exfoliants were prerequisites for healthy skin. In reality, modern dermatology and ancient herbalism agree on a simpler truth: restraint is restorative.
-
-By turning to cold-pressed botanical oils like camellia and jojoba, raw squalane, and soothing floral waters, we allow the skin barrier to recalibrate. 
-
-A mindful routine isn't just about topical nourishment—it is five minutes at dusk where you look in the mirror with gratitude rather than correction.`,
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     author: {
       name: "Camille Laurent",
       role: "Wellness Editor",
@@ -375,15 +346,7 @@ A mindful routine isn't just about topical nourishment—it is five minutes at d
     category: "Fashion",
     coverImage: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80",
     excerpt: "Embracing natural fibers, imperfect folds, and architectural silhouettes that outlast seasonal fashion cycles.",
-<<<<<<< HEAD
     content: "There is an understated luxury in natural flax linen that fast fashion can never replicate. It breathes with the body, softens with every wash, and wears its subtle wrinkles as a badge of lived experience.\n\nBuilding an enduring capsule wardrobe requires shedding the illusion that newness equals style.\n\nWhen you invest in honest materials—undyed wools, organic silks, and heavy European linen—clothing ceases to be disposable and becomes a dependable second skin that ages alongside your personal journey.",
-=======
-    content: `There is an understated luxury in natural flax linen that fast fashion can never replicate. It breathes with the body, softens with every wash, and wears its subtle wrinkles as a badge of lived experience.
-
-Building an enduring capsule wardrobe requires shedding the illusion that newness equals style. 
-
-When you invest in honest materials—undyed wools, organic silks, and heavy European linen—clothing ceases to be disposable and becomes a dependable second skin that ages alongside your personal journey.`,
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     author: {
       name: "Camille Laurent",
       role: "Creative Director",
@@ -401,15 +364,7 @@ When you invest in honest materials—undyed wools, organic silks, and heavy Eur
     category: "Food",
     coverImage: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80",
     excerpt: "Flour, spring water, sea salt, and patience. What leaven and sourdough baking taught me about trust and time.",
-<<<<<<< HEAD
     content: "Baking a true crusty sourdough cannot be rushed by technological efficiency or clever hacks. It listens solely to temperature, wild micro-flora, and gentle dough folds performed across hours.\n\nIn our kitchen, sourdough baking has become an anchor. As you flour the wooden peel and score the loaf with a razor blade, you are practicing an art older than written civilization.\n\nWhen the warm, crackling loaf emerges from the cast-iron Dutch oven, filling the home with toasted caramel aromas, you realize that patience is not passive waiting—it is active reverence.",
-=======
-    content: `Baking a true crusty sourdough cannot be rushed by technological efficiency or clever hacks. It listens solely to temperature, wild micro-flora, and gentle dough folds performed across hours.
-
-In our kitchen, sourdough baking has become an anchor. As you flour the wooden peel and score the loaf with a razor blade, you are practicing an art older than written civilization.
-
-When the warm, crackling loaf emerges from the cast-iron Dutch oven, filling the home with toasted caramel aromas, you realize that patience is not passive waiting—it is active reverence.`,
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     author: {
       name: "Matteo Rossi",
       role: "Culinary Writer",
@@ -427,15 +382,7 @@ When the warm, crackling loaf emerges from the cast-iron Dutch oven, filling the
     category: "Travel",
     coverImage: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=800&q=80",
     excerpt: "Stepping off the crowded train platforms into sun-warmed stone stairways, salt breezes, and forgotten coastal sanctuaries.",
-<<<<<<< HEAD
     content: "Most travelers speed through coastal villages with checklists and selfie sticks. But if you take the narrow, unmarked stone staircase that winds behind the chapel, the tourist clamor evaporates into silence.\n\nAbove the cliffs, olive trees whisper against dry stone terraces built by hand three centuries ago. The sea below is an unblemished deep sapphire, framed by terracotta roofs baked by centuries of Mediterranean sun.\n\nTravel, at its most transformative, is not about cataloging landmarks. It is about allowing an unfamiliar horizon to quiet your internal chatter.",
-=======
-    content: `Most travelers speed through coastal villages with checklists and selfie sticks. But if you take the narrow, unmarked stone staircase that winds behind the chapel, the tourist clamor evaporates into silence.
-
-Above the cliffs, olive trees whisper against dry stone terraces built by hand three centuries ago. The sea below is an unblemished deep sapphire, framed by terracotta roofs baked by centuries of Mediterranean sun.
-
-Travel, at its most transformative, is not about cataloging landmarks. It is about allowing an unfamiliar horizon to quiet your internal chatter.`,
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     author: {
       name: "Alex Morgan",
       role: "Editor-in-Chief",
@@ -453,15 +400,7 @@ Travel, at its most transformative, is not about cataloging landmarks. It is abo
     category: "Creativity",
     coverImage: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=800&q=80",
     excerpt: "Why centering clay on a spinning wheel is the most humbling metaphor for creative perseverance and surrender.",
-<<<<<<< HEAD
     content: "If you try to force raw stoneware clay into a vessel with tense fingers, it will wobble, thin out, and collapse into a wet clump on the wheel head.\n\nThe wheel demands that you breathe, brace your elbows against your ribs, and establish stillness before you ask the clay to rise. You must negotiate with the material, respecting its moisture, grain, and physical thresholds.\n\nEvery creative pursuit shares this principle. You cannot bully an essay or painting into being; you create the conditions for its inherent beauty to emerge.",
-=======
-    content: `If you try to force raw stoneware clay into a vessel with tense fingers, it will wobble, thin out, and collapse into a wet clump on the wheel head.
-
-The wheel demands that you breathe, brace your elbows against your ribs, and establish stillness before you ask the clay to rise. You must negotiate with the material, respecting its moisture, grain, and physical thresholds.
-
-Every creative pursuit shares this principle. You cannot bully an essay or painting into being; you create the conditions for its inherent beauty to emerge.`,
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     author: {
       name: "Sofia Berg",
       role: "Ceramicist & Naturalist",
@@ -479,13 +418,7 @@ Every creative pursuit shares this principle. You cannot bully an essay or paint
     category: "Lifestyle",
     coverImage: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
     excerpt: "Why handwriting in an unindexed notebook liberates thoughts from the subconscious drive for online performance.",
-<<<<<<< HEAD
     content: "When you write on a screen connected to the internet, a phantom audience sits over your shoulder. Even in private draft documents, the clean Helvetica typography simulates a published thought.\n\nIn contrast, an analog notebook welcomes ink blots, jagged handwriting, and messy half-sentences. In that unfiltered space, genuine self-reckoning happens.",
-=======
-    content: `When you write on a screen connected to the internet, a phantom audience sits over your shoulder. Even in private draft documents, the clean Helvetica typography simulates a published thought.
-
-In contrast, an analog notebook welcomes ink blots, jagged handwriting, and messy half-sentences. In that unfiltered space, genuine self-reckoning happens.`,
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     author: {
       name: "Alex Morgan",
       role: "Editor-in-Chief",
@@ -503,11 +436,7 @@ In contrast, an analog notebook welcomes ink blots, jagged handwriting, and mess
     category: "Creativity",
     coverImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
     excerpt: "Extracting ochres, sage greens, and warm berry stains for botanical watercolor studies.",
-<<<<<<< HEAD
     content: "Notes on gathering wild walnuts, fallen oak galls, and madder roots to craft natural ink and watercolor washes for studio exploration.",
-=======
-    content: `Notes on gathering wild walnuts, fallen oak galls, and madder roots to craft natural ink and watercolor washes for studio exploration.`,
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     author: {
       name: "Sofia Berg",
       role: "Ceramicist & Naturalist",
@@ -520,7 +449,6 @@ In contrast, an analog notebook welcomes ink blots, jagged handwriting, and mess
   }
 ];
 
-<<<<<<< HEAD
 // Local Storage Keys
 const STORAGE_KEYS = {
   BLOGS: "blogspace_blogs_v2",
@@ -538,22 +466,6 @@ function initStorage() {
   if (!localStorage.getItem(STORAGE_KEYS.BLOGS)) {
     localStorage.setItem(STORAGE_KEYS.BLOGS, JSON.stringify(DEFAULT_BLOGS));
   }
-=======
-// --- 2. Storage & State Management ---
-const STORAGE_KEYS = {
-  BLOGS: "blogspace_blogs_v2",
-  USERS: "blogspace_users_v2",
-  CURRENT_USER: "blogspace_currentUser_v2"
-};
-
-function initStorage() {
-  if (!localStorage.getItem(STORAGE_KEYS.BLOGS)) {
-    localStorage.setItem(STORAGE_KEYS.BLOGS, JSON.stringify(DEFAULT_BLOGS));
-  }
-  if (!localStorage.getItem(STORAGE_KEYS.USERS)) {
-    localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(DEFAULT_USERS));
-  }
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 }
 
 function getStoredBlogs() {
@@ -562,10 +474,6 @@ function getStoredBlogs() {
     const data = JSON.parse(localStorage.getItem(STORAGE_KEYS.BLOGS));
     return Array.isArray(data) && data.length > 0 ? data : DEFAULT_BLOGS;
   } catch (e) {
-<<<<<<< HEAD
-=======
-    console.error("Error reading blogs from storage:", e);
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     return DEFAULT_BLOGS;
   }
 }
@@ -574,24 +482,6 @@ function saveStoredBlogs(blogs) {
   localStorage.setItem(STORAGE_KEYS.BLOGS, JSON.stringify(blogs));
 }
 
-<<<<<<< HEAD
-=======
-function getStoredUsers() {
-  initStorage();
-  try {
-    const data = JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS));
-    return Array.isArray(data) && data.length > 0 ? data : DEFAULT_USERS;
-  } catch (e) {
-    console.error("Error reading users:", e);
-    return DEFAULT_USERS;
-  }
-}
-
-function saveStoredUsers(users) {
-  localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
-}
-
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 function getCurrentUser() {
   try {
     const userStr = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
@@ -601,7 +491,6 @@ function getCurrentUser() {
   }
 }
 
-<<<<<<< HEAD
 function setCurrentUser(user, token) {
   if (user) {
     const { password, ...safeUser } = user;
@@ -610,29 +499,18 @@ function setCurrentUser(user, token) {
   if (token) {
     localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, token);
   }
-=======
-function setCurrentUser(user) {
-  localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(user));
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 }
 
 function logoutUser() {
   localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
-<<<<<<< HEAD
   localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
-=======
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   showToast("Logged Out", "You have been logged out from your creative studio.", "info");
   setTimeout(() => {
     window.location.href = "login.html";
   }, 700);
 }
 
-<<<<<<< HEAD
 // --- 4. Native Vector Icon System ---
-=======
-// --- 3. Offline Native Vector Icon System ---
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 const SVG_ICONS = {
   "feather": '<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/>',
   "edit-3": '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
@@ -702,10 +580,6 @@ function initLucideIcons() {
     }
   }
 
-<<<<<<< HEAD
-=======
-  // Native Inline SVG Fallback
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   const elements = document.querySelectorAll("[data-lucide]");
   elements.forEach(el => {
     const iconName = el.getAttribute("data-lucide");
@@ -730,11 +604,7 @@ function initLucideIcons() {
   });
 }
 
-<<<<<<< HEAD
 // --- 5. UI Helpers: Toasts, Modals, State ---
-=======
-// --- 4. UI Helpers: Toasts, Modals, State ---
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 function showToast(title, message, type = "success") {
   let container = document.querySelector(".toast-container");
   if (!container) {
@@ -785,10 +655,6 @@ function closeModal(modalId) {
   }
 }
 
-<<<<<<< HEAD
-=======
-// Global modal overlay click close
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("modal-overlay")) {
     e.target.classList.remove("open");
@@ -796,10 +662,6 @@ document.addEventListener("click", (e) => {
   }
 });
 
-<<<<<<< HEAD
-=======
-// Setup mobile nav toggle
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 function setupMobileNav() {
   const toggleBtn = document.querySelector(".mobile-nav-toggle");
   const mobileMenu = document.querySelector(".mobile-nav-menu");
@@ -810,30 +672,18 @@ function setupMobileNav() {
   }
 }
 
-<<<<<<< HEAD
-=======
-// Format readable date
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 function getFormattedDateNow() {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const d = new Date();
   return `${months[d.getMonth()]} ${String(d.getDate()).padStart(2, "0")}, ${d.getFullYear()}`;
 }
 
-<<<<<<< HEAD
-=======
-// Calculate Read Time helper
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 function calculateReadTime(text) {
   const words = text ? text.trim().split(/\s+/).length : 0;
   const minutes = Math.max(1, Math.ceil(words / 170));
   return `${minutes} min read`;
 }
 
-<<<<<<< HEAD
-=======
-// Update Global Nav state (Login vs Dashboard/User avatar)
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 function updateNavbarState() {
   const currentUser = getCurrentUser();
   const navActions = document.querySelector(".nav-actions");
@@ -841,16 +691,11 @@ function updateNavbarState() {
 
   if (!navActions) return;
 
-<<<<<<< HEAD
   const statusPillHTML = `<span class="api-status-pill ${isBackendAvailable ? 'connected' : 'offline'}" id="apiStatusPill" title="${isBackendAvailable ? 'Connected to Express REST API' : 'Run: npm start'}"><span class="status-dot"></span> <span class="status-text">${isBackendAvailable ? 'API Online' : 'Local Mode'}</span></span>`;
 
   if (currentUser) {
     navActions.innerHTML = `
       ${statusPillHTML}
-=======
-  if (currentUser) {
-    navActions.innerHTML = `
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
       <a href="create-blog.html" class="btn btn-outline btn-sm">
         <i data-lucide="edit-3"></i> Write
       </a>
@@ -864,10 +709,7 @@ function updateNavbarState() {
     `;
     if (mobileActions) {
       mobileActions.innerHTML = `
-<<<<<<< HEAD
         <div style="margin-bottom: 0.5rem;">${statusPillHTML}</div>
-=======
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
         <a href="dashboard.html" class="btn btn-primary btn-block">Author Studio</a>
         <a href="create-blog.html" class="btn btn-outline btn-block">Write Story</a>
         <button onclick="logoutUser()" class="btn btn-ghost btn-block">Logout (${currentUser.name})</button>
@@ -875,22 +717,14 @@ function updateNavbarState() {
     }
   } else {
     navActions.innerHTML = `
-<<<<<<< HEAD
       ${statusPillHTML}
       <a href="login.html" class="nav-link">Sign In</a>
-=======
-      <a href="login.html" class="nav-link">Login</a>
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
       <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
     `;
     if (mobileActions) {
       mobileActions.innerHTML = `
-<<<<<<< HEAD
         <div style="margin-bottom: 0.5rem;">${statusPillHTML}</div>
         <a href="login.html" class="btn btn-outline btn-block">Sign In</a>
-=======
-        <a href="login.html" class="btn btn-outline btn-block">Login</a>
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
         <a href="register.html" class="btn btn-primary btn-block">Get Started</a>
       `;
     }
@@ -898,16 +732,10 @@ function updateNavbarState() {
   initLucideIcons();
 }
 
-<<<<<<< HEAD
 // --- 6. Page 1: Home Page Controller (Connected with Backend) ---
 async function initHomePage() {
   setupMobileNav();
   await checkBackendConnection();
-=======
-// --- 5. Page 1: Home Page Controller ---
-function initHomePage() {
-  setupMobileNav();
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   updateNavbarState();
 
   const startWritingBtn = document.getElementById("heroStartWritingBtn");
@@ -919,18 +747,12 @@ function initHomePage() {
     });
   }
 
-<<<<<<< HEAD
   // Initial load of blogs from Backend API / Local fallback
   await renderHomeBlogs();
-=======
-  // Render Featured Blogs
-  renderHomeBlogs();
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 
   // Category filter tabs
   const categoryChips = document.querySelectorAll(".category-chip");
   categoryChips.forEach(chip => {
-<<<<<<< HEAD
     chip.addEventListener("click", async () => {
       categoryChips.forEach(c => c.classList.remove("active"));
       chip.classList.add("active");
@@ -939,17 +761,6 @@ function initHomePage() {
     });
   });
 
-=======
-    chip.addEventListener("click", () => {
-      categoryChips.forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-      const selectedCat = chip.getAttribute("data-category");
-      renderHomeBlogs(selectedCat);
-    });
-  });
-
-  // Newsletter demo handler
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   const newsletterForm = document.getElementById("newsletterForm");
   if (newsletterForm) {
     newsletterForm.addEventListener("submit", (e) => {
@@ -963,77 +774,94 @@ function initHomePage() {
   }
 }
 
-<<<<<<< HEAD
 async function renderHomeBlogs(category = "all") {
   const grid = document.getElementById("featuredBlogGrid");
   if (!grid) return;
 
+  // 1. Loading State
   grid.innerHTML = `
-    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--secondary-text);">
-      <p style="font-style: italic; font-family: var(--font-serif);">Loading curated essays...</p>
+    <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem; color: var(--secondary-text);">
+      <div class="loading-spinner-editorial"></div>
+      <p style="font-style: italic; font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-main); margin-bottom: 0.35rem;">Loading curated stories from MongoDB...</p>
+      <p style="font-size: 0.85rem; color: var(--secondary-text);">Fetching latest published essays from database</p>
     </div>
   `;
 
-  // Fetch from REST API (or fallback)
-  const blogs = await ApiService.getBlogs({ category, status: 'published' });
-
-  if (!blogs || blogs.length === 0) {
-=======
-function renderHomeBlogs(category = "all") {
-  const grid = document.getElementById("featuredBlogGrid");
-  if (!grid) return;
-
-  const blogs = getStoredBlogs();
-  let filtered = blogs.filter(b => b.status === "published");
-
-  if (category !== "all") {
-    filtered = filtered.filter(b => b.category.toLowerCase() === category.toLowerCase());
-  }
-
-  if (filtered.length === 0) {
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
+  // 2. Retrieve blogs from database
+  let blogs = null;
+  try {
+    blogs = await ApiService.getBlogs({ category, status: 'published' });
+  } catch (err) {
+    console.error("Database fetch error in renderHomeBlogs:", err);
+    // Error State
     grid.innerHTML = `
-      <div class="empty-state" style="grid-column: 1 / -1;">
-        <div class="empty-state-icon"><i data-lucide="book-open"></i></div>
-        <h3>No Stories Found</h3>
-        <p>No published stories found in this category yet. Be the first to share an inspiring perspective.</p>
+      <div class="state-box" style="grid-column: 1 / -1;">
+        <div class="state-box-icon"><i data-lucide="alert-circle"></i></div>
+        <h2>Unable to Retrieve Stories</h2>
+        <p>A connection error occurred while querying the database. Please ensure your backend and MongoDB are running.</p>
+        <button class="btn btn-outline btn-sm" onclick="renderHomeBlogs('${category}')">
+          <i data-lucide="refresh-cw"></i> Retry Query
+        </button>
       </div>
     `;
     initLucideIcons();
     return;
   }
 
-<<<<<<< HEAD
+  // 3. Empty State
+  if (!blogs || blogs.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column: 1 / -1;">
+        <div class="empty-state-icon"><i data-lucide="book-open"></i></div>
+        <h3>No Stories Found</h3>
+        <p>No published stories found in this category yet. Be the first to share an inspiring perspective.</p>
+        <div style="margin-top: 1.5rem;">
+          <a href="create-blog.html" class="btn btn-primary btn-sm">
+            <i data-lucide="pen-tool"></i> Write a Story
+          </a>
+        </div>
+      </div>
+    `;
+    initLucideIcons();
+    return;
+  }
+
+  // 4. Render Dynamic MongoDB Blogs
   grid.innerHTML = blogs.map(blog => {
-=======
-  grid.innerHTML = filtered.map(blog => {
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
-    const badgeClass = `badge-${blog.category.toLowerCase()}`;
+    const blogId = blog._id || blog.id;
+    const badgeClass = `badge-${(blog.category || 'lifestyle').toLowerCase()}`;
+    const authorName = (blog.author && blog.author.name) ? blog.author.name : 'Contributing Writer';
+    const authorRole = (blog.author && blog.author.role) ? blog.author.role : 'Contributor';
+    const authorAvatar = (blog.author && blog.author.avatar) ? blog.author.avatar : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80';
+    const detailsUrl = `blog-details.html?id=${encodeURIComponent(blogId)}`;
+
     return `
       <article class="blog-card">
-        <div class="blog-card-thumbnail-wrap">
+        <a href="${detailsUrl}" class="blog-card-thumbnail-wrap" aria-label="${blog.title}">
           <img src="${blog.coverImage}" alt="${blog.title}" class="blog-card-thumbnail" loading="lazy">
           <span class="badge ${badgeClass} blog-card-category-badge">${blog.category}</span>
-        </div>
+        </a>
         <div class="blog-card-body">
           <div class="blog-card-meta-top">
-            <span>${blog.date}</span>
+            <span>${blog.date || 'Recently published'}</span>
             <span class="dot"></span>
             <span>${blog.readTime || '4 min read'}</span>
           </div>
-          <h3 class="blog-card-title">${blog.title}</h3>
-          <p class="blog-card-excerpt">${blog.excerpt}</p>
+          <a href="${detailsUrl}" style="text-decoration: none; color: inherit;">
+            <h3 class="blog-card-title">${blog.title}</h3>
+          </a>
+          <p class="blog-card-excerpt">${blog.excerpt || ''}</p>
           <div class="blog-card-footer">
             <div class="author-info">
-              <img src="${blog.author.avatar}" alt="${blog.author.name}" class="author-avatar">
+              <img src="${authorAvatar}" alt="${authorName}" class="author-avatar">
               <div>
-                <div class="author-name">${blog.author.name}</div>
-                <div class="author-role">${blog.author.role || 'Contributor'}</div>
+                <div class="author-name">${authorName}</div>
+                <div class="author-role">${authorRole}</div>
               </div>
             </div>
-            <button class="read-more-btn" onclick="openStoryPreviewModal('${blog.id}')">
+            <a href="${detailsUrl}" class="read-more-btn" aria-label="Read full story: ${blog.title}">
               Read Story <i data-lucide="arrow-right"></i>
-            </button>
+            </a>
           </div>
         </div>
       </article>
@@ -1043,68 +871,78 @@ function renderHomeBlogs(category = "all") {
   initLucideIcons();
 }
 
-<<<<<<< HEAD
-=======
-// Modal reader popup for Home & Dashboard
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
-function openStoryPreviewModal(blogId) {
+async function openStoryPreviewModal(blogId) {
+  let blog = null;
   const blogs = getStoredBlogs();
-  const blog = blogs.find(b => b.id === blogId);
-  if (!blog) return;
+  blog = blogs.find(b => (b._id === blogId || b.id === blogId || b.slug === blogId));
+
+  if (!blog) {
+    try {
+      blog = await ApiService.getBlog(blogId);
+    } catch (e) {
+      console.warn("Could not load blog for preview modal:", e);
+    }
+  }
+
+  if (!blog) {
+    showToast("Story Unavailable", "Could not locate this story.", "error");
+    return;
+  }
 
   const modal = document.getElementById("storyPreviewModal");
   if (!modal) return;
 
   const contentArea = modal.querySelector(".modal-body");
-  const badgeClass = `badge-${blog.category.toLowerCase()}`;
+  const badgeClass = `badge-${(blog.category || 'lifestyle').toLowerCase()}`;
 
-  const formattedContent = blog.content
+  const formattedContent = (blog.content || '')
     .split("\n\n")
     .map(p => `<p>${p.replace(/\n/g, "<br>")}</p>`)
     .join("");
+
+  const authorName = blog.author?.name || 'Contributing Writer';
+  const authorRole = blog.author?.role || 'Essayist';
+  const authorAvatar = blog.author?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80';
+  const effectiveId = blog._id || blog.id || blogId;
 
   contentArea.innerHTML = `
     <img src="${blog.coverImage}" alt="${blog.title}" class="preview-cover-img">
     <div class="preview-meta-row">
       <span class="badge ${badgeClass}">${blog.category}</span>
-      <span style="font-size: 0.85rem; color: var(--secondary-text);">${blog.date} &bull; ${blog.readTime}</span>
+      <span style="font-size: 0.85rem; color: var(--secondary-text);">${blog.date || ''} &bull; ${blog.readTime || '4 min read'}</span>
     </div>
     <h1 class="preview-title">${blog.title}</h1>
     <div class="author-info" style="margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-color);">
-      <img src="${blog.author.avatar}" alt="${blog.author.name}" class="author-avatar" style="width: 44px; height: 44px;">
+      <img src="${authorAvatar}" alt="${authorName}" class="author-avatar" style="width: 44px; height: 44px;">
       <div>
-        <div class="author-name" style="font-size: 1rem;">${blog.author.name}</div>
-        <div class="author-role">${blog.author.role || 'Essayist'}</div>
+        <div class="author-name" style="font-size: 1rem;">${authorName}</div>
+        <div class="author-role">${authorRole}</div>
       </div>
     </div>
     <div class="preview-content">
       ${formattedContent}
     </div>
+    <div style="margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color); text-align: right;">
+      <a href="blog-details.html?id=${encodeURIComponent(effectiveId)}" class="btn btn-primary btn-sm">
+        <i data-lucide="external-link"></i> Open Dedicated Story Page
+      </a>
+    </div>
   `;
 
   openModal("storyPreviewModal");
+  initLucideIcons();
 }
 
-<<<<<<< HEAD
 // --- 7. Page 2: Login Page Controller (Connected with Backend API) ---
 async function initLoginPage() {
   await checkBackendConnection();
-=======
-// --- 6. Page 2: Login Page Controller ---
-function initLoginPage() {
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   const loginForm = document.getElementById("loginForm");
   const emailInput = document.getElementById("loginEmail");
   const passwordInput = document.getElementById("loginPassword");
   const passwordToggle = document.getElementById("togglePasswordBtn");
   const demoFillBtn = document.getElementById("demoFillBtn");
-<<<<<<< HEAD
   const submitBtn = document.getElementById("loginSubmitBtn");
 
-=======
-
-  // Show/Hide Password
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   if (passwordToggle && passwordInput) {
     passwordToggle.addEventListener("click", () => {
       const isPassword = passwordInput.type === "password";
@@ -1114,10 +952,6 @@ function initLoginPage() {
     });
   }
 
-<<<<<<< HEAD
-=======
-  // Demo Credentials Auto Fill
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   if (demoFillBtn) {
     demoFillBtn.addEventListener("click", () => {
       emailInput.value = "alex@blogspace.io";
@@ -1126,14 +960,8 @@ function initLoginPage() {
     });
   }
 
-<<<<<<< HEAD
   if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
-=======
-  // Form Submission
-  if (loginForm) {
-    loginForm.addEventListener("submit", (e) => {
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
       e.preventDefault();
       clearFormErrors();
 
@@ -1156,7 +984,6 @@ function initLoginPage() {
 
       if (!isValid) return;
 
-<<<<<<< HEAD
       const originalBtnText = submitBtn.innerHTML;
       submitBtn.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 0.5rem;"><i data-lucide="sun"></i> Signing In...</span>';
       submitBtn.disabled = true;
@@ -1176,33 +1003,14 @@ function initLoginPage() {
         submitBtn.innerHTML = originalBtnText;
         submitBtn.disabled = false;
         initLucideIcons();
-=======
-      const users = getStoredUsers();
-      const matchedUser = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
-
-      if (matchedUser) {
-        setCurrentUser(matchedUser);
-        showToast("Welcome Back", `Signed in as ${matchedUser.name}. Opening studio...`, "success");
-        setTimeout(() => {
-          window.location.href = "dashboard.html";
-        }, 850);
-      } else {
-        showInputError("loginPassword", "Invalid email or password. You can use our demo credentials.");
-        showToast("Authentication Error", "Invalid credentials provided.", "error");
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
       }
     });
   }
 }
 
-<<<<<<< HEAD
 // --- 8. Page 3: Register Page Controller (Connected with Backend API) ---
 async function initRegisterPage() {
   await checkBackendConnection();
-=======
-// --- 7. Page 3: Register Page Controller ---
-function initRegisterPage() {
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   const registerForm = document.getElementById("registerForm");
   const nameInput = document.getElementById("regName");
   const emailInput = document.getElementById("regEmail");
@@ -1210,10 +1018,7 @@ function initRegisterPage() {
   const confirmPasswordInput = document.getElementById("regConfirmPassword");
   const termsCheckbox = document.getElementById("regTerms");
   const passwordToggle = document.getElementById("toggleRegPasswordBtn");
-<<<<<<< HEAD
   const submitBtn = document.getElementById("regSubmitBtn");
-=======
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 
   if (passwordToggle && passwordInput) {
     passwordToggle.addEventListener("click", () => {
@@ -1226,11 +1031,7 @@ function initRegisterPage() {
   }
 
   if (registerForm) {
-<<<<<<< HEAD
     registerForm.addEventListener("submit", async (e) => {
-=======
-    registerForm.addEventListener("submit", (e) => {
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
       e.preventDefault();
       clearFormErrors();
 
@@ -1275,7 +1076,6 @@ function initRegisterPage() {
 
       if (!isValid) return;
 
-<<<<<<< HEAD
       const originalBtnText = submitBtn.innerHTML;
       submitBtn.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 0.5rem;"><i data-lucide="sun"></i> Creating Account...</span>';
       submitBtn.disabled = true;
@@ -1298,33 +1098,6 @@ function initRegisterPage() {
         submitBtn.disabled = false;
         initLucideIcons();
       }
-=======
-      const users = getStoredUsers();
-      const emailExists = users.some(u => u.email.toLowerCase() === email.toLowerCase());
-
-      if (emailExists) {
-        showInputError("regEmail", "This email address is already registered.");
-        showToast("Registration Error", "Email is already in use.", "error");
-        return;
-      }
-
-      const newUser = {
-        id: "user_" + Date.now(),
-        name: name,
-        email: email,
-        password: password,
-        role: "Contributing Writer",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
-      };
-
-      users.push(newUser);
-      saveStoredUsers(users);
-
-      showToast("Account Created", "Your membership is active! Redirecting to login...", "success");
-      setTimeout(() => {
-        window.location.href = "login.html";
-      }, 1100);
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     });
   }
 }
@@ -1356,7 +1129,6 @@ function clearFormErrors() {
   });
 }
 
-<<<<<<< HEAD
 // --- 9. Page 4: Dashboard Page Controller (Connected with Backend API) ---
 let currentDeleteBlogId = null;
 
@@ -1380,19 +1152,6 @@ async function initDashboardPage() {
     }
   });
 
-=======
-// --- 8. Page 4: Dashboard Page Controller ---
-let currentDeleteBlogId = null;
-
-function initDashboardPage() {
-  let user = getCurrentUser();
-  if (!user) {
-    user = DEFAULT_USERS[0];
-    setCurrentUser(user);
-    showToast("Editorial Studio", "Welcome Alex Morgan to your writing sanctum.", "info");
-  }
-
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   const userNameElements = document.querySelectorAll(".user-name-display");
   const userEmailElements = document.querySelectorAll(".user-email-display");
   const userAvatarElements = document.querySelectorAll(".user-avatar-display");
@@ -1409,7 +1168,6 @@ function initDashboardPage() {
     });
   }
 
-<<<<<<< HEAD
   // Load stats and blogs via REST APIs
   await updateDashboardStats();
   await renderDashboardBlogs();
@@ -1423,48 +1181,24 @@ function initDashboardPage() {
         const query = e.target.value.toLowerCase();
         renderDashboardBlogs("all", query);
       }, 250);
-=======
-  updateDashboardStats();
-  renderDashboardBlogs();
-
-  const searchInput = document.getElementById("dashboardSearchInput");
-  if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      const query = e.target.value.toLowerCase();
-      renderDashboardBlogs("all", query);
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     });
   }
 
   const filterPills = document.querySelectorAll(".filter-pill");
   filterPills.forEach(pill => {
-<<<<<<< HEAD
     pill.addEventListener("click", async () => {
       filterPills.forEach(p => p.classList.remove("active"));
       pill.classList.add("active");
       const status = pill.getAttribute("data-status");
       await renderDashboardBlogs(status);
-=======
-    pill.addEventListener("click", () => {
-      filterPills.forEach(p => p.classList.remove("active"));
-      pill.classList.add("active");
-      const status = pill.getAttribute("data-status");
-      renderDashboardBlogs(status);
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     });
   });
 
   const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
   if (confirmDeleteBtn) {
-<<<<<<< HEAD
     confirmDeleteBtn.addEventListener("click", async () => {
       if (currentDeleteBlogId) {
         await deleteBlog(currentDeleteBlogId);
-=======
-    confirmDeleteBtn.addEventListener("click", () => {
-      if (currentDeleteBlogId) {
-        deleteBlog(currentDeleteBlogId);
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
         closeModal("deleteConfirmModal");
         currentDeleteBlogId = null;
       }
@@ -1472,24 +1206,14 @@ function initDashboardPage() {
   }
 }
 
-<<<<<<< HEAD
 async function updateDashboardStats() {
   const stats = await ApiService.getStats();
-=======
-function updateDashboardStats() {
-  const blogs = getStoredBlogs();
-  const total = blogs.length;
-  const published = blogs.filter(b => b.status === "published").length;
-  const drafts = blogs.filter(b => b.status === "draft").length;
-  const views = blogs.reduce((sum, b) => sum + (b.views || 0), 0);
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 
   const totalEl = document.getElementById("statTotalBlogs");
   const pubEl = document.getElementById("statPublishedBlogs");
   const draftEl = document.getElementById("statDraftBlogs");
   const viewsEl = document.getElementById("statTotalViews");
 
-<<<<<<< HEAD
   if (totalEl) totalEl.textContent = stats.total;
   if (pubEl) pubEl.textContent = stats.published;
   if (draftEl) draftEl.textContent = stats.drafts;
@@ -1497,42 +1221,15 @@ function updateDashboardStats() {
 }
 
 async function renderDashboardBlogs(statusFilter = "all", searchQuery = "") {
-=======
-  if (totalEl) totalEl.textContent = total;
-  if (pubEl) pubEl.textContent = published;
-  if (draftEl) draftEl.textContent = drafts;
-  if (viewsEl) viewsEl.textContent = views.toLocaleString();
-}
-
-function renderDashboardBlogs(statusFilter = "all", searchQuery = "") {
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   const tableBody = document.getElementById("dashboardBlogsTableBody");
   const emptyState = document.getElementById("dashboardEmptyState");
   const tableContainer = document.getElementById("dashboardTableContainer");
 
   if (!tableBody) return;
 
-<<<<<<< HEAD
   const blogs = await ApiService.getBlogs({ status: statusFilter, search: searchQuery });
 
   if (!blogs || blogs.length === 0) {
-=======
-  const blogs = getStoredBlogs();
-  let filtered = blogs;
-
-  if (statusFilter !== "all") {
-    filtered = filtered.filter(b => b.status === statusFilter);
-  }
-
-  if (searchQuery) {
-    filtered = filtered.filter(b => 
-      b.title.toLowerCase().includes(searchQuery) || 
-      b.category.toLowerCase().includes(searchQuery)
-    );
-  }
-
-  if (filtered.length === 0) {
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     if (tableContainer) tableContainer.style.display = "none";
     if (emptyState) emptyState.style.display = "block";
     return;
@@ -1541,11 +1238,8 @@ function renderDashboardBlogs(statusFilter = "all", searchQuery = "") {
   if (tableContainer) tableContainer.style.display = "block";
   if (emptyState) emptyState.style.display = "none";
 
-<<<<<<< HEAD
   tableBody.innerHTML = blogs.map(blog => {
-=======
-  tableBody.innerHTML = filtered.map(blog => {
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
+    const blogId = blog._id || blog.id;
     const isPublished = blog.status === "published";
     const statusBadge = isPublished
       ? `<span class="badge badge-published"><i data-lucide="check" style="width: 12px; height: 12px;"></i> Published</span>`
@@ -1556,26 +1250,29 @@ function renderDashboardBlogs(statusFilter = "all", searchQuery = "") {
         <td>
           <div class="blog-row-title-cell">
             <img src="${blog.coverImage}" alt="${blog.title}" class="blog-row-thumbnail">
-            <span class="blog-row-title-text">${blog.title}</span>
+            <a href="blog-details.html?id=${encodeURIComponent(blogId)}" class="blog-row-title-text" style="text-decoration: none; color: inherit;">${blog.title}</a>
           </div>
         </td>
         <td>
-          <span class="badge badge-${blog.category.toLowerCase()}">${blog.category}</span>
+          <span class="badge badge-${(blog.category || 'lifestyle').toLowerCase()}">${blog.category}</span>
         </td>
-        <td style="color: var(--secondary-text); font-size: 0.85rem;">${blog.date}</td>
+        <td style="color: var(--secondary-text); font-size: 0.85rem;">${blog.date || ''}</td>
         <td>${statusBadge}</td>
         <td style="color: var(--secondary-text); font-size: 0.85rem;">
           <i data-lucide="eye" style="width: 14px; height: 14px; vertical-align: -2px;"></i> ${blog.views || 0}
         </td>
         <td>
           <div class="blog-row-actions">
-            <button class="action-btn" title="Preview Story" onclick="openStoryPreviewModal('${blog.id}')">
+            <a href="blog-details.html?id=${encodeURIComponent(blogId)}" class="action-btn" title="View Story Details">
+              <i data-lucide="external-link"></i>
+            </a>
+            <button class="action-btn" title="Preview Story Modal" onclick="openStoryPreviewModal('${blogId}')">
               <i data-lucide="eye"></i>
             </button>
-            <a href="create-blog.html?id=${blog.id}" class="action-btn" title="Edit Story">
+            <a href="create-blog.html?id=${encodeURIComponent(blogId)}" class="action-btn" title="Edit Story">
               <i data-lucide="edit-2"></i>
             </a>
-            <button class="action-btn delete-btn" title="Delete Story" onclick="triggerDeleteModal('${blog.id}')">
+            <button class="action-btn delete-btn" title="Delete Story" onclick="triggerDeleteModal('${blogId}')">
               <i data-lucide="trash-2"></i>
             </button>
           </div>
@@ -1592,7 +1289,6 @@ function triggerDeleteModal(blogId) {
   openModal("deleteConfirmModal");
 }
 
-<<<<<<< HEAD
 async function deleteBlog(blogId) {
   try {
     await ApiService.deleteBlog(blogId);
@@ -1605,19 +1301,6 @@ async function deleteBlog(blogId) {
 }
 
 // --- 10. Page 5: Create / Edit Blog Controller (Connected with Backend API) ---
-=======
-function deleteBlog(blogId) {
-  let blogs = getStoredBlogs();
-  blogs = blogs.filter(b => b.id !== blogId);
-  saveStoredBlogs(blogs);
-
-  updateDashboardStats();
-  renderDashboardBlogs();
-  showToast("Story Removed", "The story has been removed from your local archive.", "info");
-}
-
-// --- 9. Page 5: Create / Edit Blog Controller ---
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 const COVER_PRESETS = [
   { name: "Botanicals", url: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" },
   { name: "Coffee & Books", url: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80" },
@@ -1627,7 +1310,6 @@ const COVER_PRESETS = [
   { name: "Cuisine", url: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" }
 ];
 
-<<<<<<< HEAD
 async function initEditorPage() {
   await checkBackendConnection();
   const user = getCurrentUser();
@@ -1641,9 +1323,6 @@ async function initEditorPage() {
     return;
   }
 
-=======
-function initEditorPage() {
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   const urlParams = new URLSearchParams(window.location.search);
   const editId = urlParams.get("id");
 
@@ -1697,24 +1376,14 @@ function initEditorPage() {
   }
 
   if (editId) {
-<<<<<<< HEAD
     editingBlog = await ApiService.getBlog(editId);
-=======
-    const blogs = getStoredBlogs();
-    editingBlog = blogs.find(b => b.id === editId);
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     if (editingBlog) {
       if (editorHeading) editorHeading.textContent = "Edit Your Story";
       document.title = "Edit Story – BlogSpace";
       titleInput.value = editingBlog.title;
       categorySelect.value = editingBlog.category;
-<<<<<<< HEAD
       excerptInput.value = editingBlog.excerpt || "";
       coverUrlInput.value = editingBlog.coverImage || "";
-=======
-      excerptInput.value = editingBlog.excerpt;
-      coverUrlInput.value = editingBlog.coverImage;
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
       contentInput.value = editingBlog.content;
       updateCoverPreview(editingBlog.coverImage);
       updateCounts();
@@ -1795,11 +1464,7 @@ function initEditorPage() {
     });
   }
 
-<<<<<<< HEAD
   async function handleSaveBlog(targetStatus) {
-=======
-  function handleSaveBlog(targetStatus) {
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
     clearFormErrors();
 
     const title = titleInput.value.trim();
@@ -1830,7 +1495,6 @@ function initEditorPage() {
       return;
     }
 
-<<<<<<< HEAD
     const user = getCurrentUser();
     if (!user) {
       showToast("Authentication Required", "Please sign in to publish or draft stories.", "error");
@@ -1855,7 +1519,8 @@ function initEditorPage() {
     try {
       if (editingBlog) {
         // Connect to PUT /api/blogs/:id
-        await ApiService.updateBlog(editingBlog.id, blogPayload);
+        const targetId = editingBlog._id || editingBlog.id;
+        await ApiService.updateBlog(targetId, blogPayload);
       } else {
         // Connect to POST /api/blogs (Create Blog)
         await ApiService.createBlog(blogPayload);
@@ -1872,55 +1537,6 @@ function initEditorPage() {
     } catch (err) {
       showToast("Save Error", err.message || "Failed to save blog.", "error");
     }
-=======
-    const blogs = getStoredBlogs();
-    const user = getCurrentUser() || DEFAULT_USERS[0];
-
-    if (editingBlog) {
-      const index = blogs.findIndex(b => b.id === editingBlog.id);
-      if (index !== -1) {
-        blogs[index] = {
-          ...blogs[index],
-          title: title,
-          category: category,
-          excerpt: excerpt || content.substring(0, 140) + "...",
-          coverImage: coverImage,
-          content: content,
-          readTime: calculateReadTime(content),
-          status: targetStatus
-        };
-      }
-    } else {
-      const newBlog = {
-        id: "blog_" + Date.now(),
-        title: title,
-        slug: title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-        category: category,
-        excerpt: excerpt || content.substring(0, 140) + "...",
-        coverImage: coverImage,
-        content: content,
-        author: {
-          name: user.name,
-          role: user.role || "Essayist",
-          avatar: user.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
-        },
-        date: getFormattedDateNow(),
-        readTime: calculateReadTime(content),
-        status: targetStatus,
-        views: targetStatus === "published" ? Math.floor(Math.random() * 40) + 1 : 0
-      };
-      blogs.unshift(newBlog);
-    }
-
-    saveStoredBlogs(blogs);
-
-    const msg = targetStatus === "published" ? "Story published to the global circle." : "Draft saved to your studio.";
-    showToast("Story Preserved", msg, "success");
-
-    setTimeout(() => {
-      window.location.href = "dashboard.html";
-    }, 850);
->>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
   }
 }
 
@@ -1962,6 +1578,149 @@ function applyFormatting(action, textarea) {
   textarea.focus();
 }
 
+// --- 11. Dedicated Blog Details Page Controller (MongoDB-backed) ---
+async function initBlogDetailsPage() {
+  await checkBackendConnection();
+  renderNavUser();
+
+  const loadingEl = document.getElementById("blogDetailsLoading");
+  const errorEl = document.getElementById("blogDetailsError");
+  const contentEl = document.getElementById("blogDetailsContent");
+  const errorTitleEl = document.getElementById("blogErrorTitle");
+  const errorDescEl = document.getElementById("blogErrorDesc");
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const blogId = urlParams.get("id");
+
+  function showError(title, desc) {
+    if (loadingEl) loadingEl.style.display = "none";
+    if (contentEl) contentEl.style.display = "none";
+    if (errorEl) {
+      errorEl.style.display = "block";
+      if (errorTitleEl && title) errorTitleEl.textContent = title;
+      if (errorDescEl && desc) errorDescEl.textContent = desc;
+      initLucideIcons();
+    }
+  }
+
+  if (!blogId || !blogId.trim()) {
+    showError("Story Identifier Missing", "No story identifier was specified in the URL. Please browse stories from the Journal.");
+    return;
+  }
+
+  try {
+    const blog = await ApiService.getBlog(blogId.trim());
+
+    if (!blog) {
+      showError("Story Not Found", "The requested story could not be located in our database archive. It may have been archived, deleted, or the identifier is invalid.");
+      return;
+    }
+
+    // Update document title
+    document.title = `${blog.title} – BlogSpace Editorial`;
+
+    // Metadata
+    const categoryBadge = document.getElementById("detailCategoryBadge");
+    if (categoryBadge) {
+      categoryBadge.textContent = blog.category;
+      categoryBadge.className = `badge badge-${(blog.category || 'lifestyle').toLowerCase()}`;
+    }
+
+    const detailDate = document.getElementById("detailDate");
+    if (detailDate) detailDate.textContent = blog.date || "Recently published";
+
+    const detailReadTime = document.getElementById("detailReadTime");
+    if (detailReadTime) detailReadTime.textContent = blog.readTime || "4 min read";
+
+    const detailViews = document.getElementById("detailViews");
+    if (detailViews) detailViews.textContent = `${(blog.views || 0).toLocaleString()} views`;
+
+    // Headline
+    const detailTitle = document.getElementById("detailTitle");
+    if (detailTitle) detailTitle.textContent = blog.title;
+
+    // Author
+    const authorData = blog.author || {
+      name: "Alex Morgan",
+      role: "Contributing Writer",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+    };
+
+    const authorAvatar = document.getElementById("detailAuthorAvatar");
+    const authorName = document.getElementById("detailAuthorName");
+    const authorRole = document.getElementById("detailAuthorRole");
+
+    if (authorAvatar) {
+      authorAvatar.src = authorData.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80";
+      authorAvatar.alt = authorData.name || "Author";
+    }
+    if (authorName) authorName.textContent = authorData.name || "Contributing Writer";
+    if (authorRole) authorRole.textContent = authorData.role || "Essayist";
+
+    // Hero Cover Image
+    const coverWrap = document.getElementById("detailCoverWrap");
+    const coverImg = document.getElementById("detailCoverImg");
+    if (coverImg && blog.coverImage) {
+      coverImg.src = blog.coverImage;
+      coverImg.alt = blog.title;
+      if (coverWrap) coverWrap.style.display = "block";
+    } else if (coverWrap) {
+      coverWrap.style.display = "none";
+    }
+
+    // Body content with paragraphs, quotes, and headings
+    const detailBody = document.getElementById("detailBody");
+    if (detailBody && blog.content) {
+      const paragraphs = blog.content
+        .split("\n\n")
+        .map(p => {
+          const trimmed = p.trim();
+          if (trimmed.startsWith(">")) {
+            return `<blockquote>${trimmed.replace(/^>\s*/, "").replace(/\n/g, "<br>")}</blockquote>`;
+          }
+          if (trimmed.startsWith("###")) {
+            return `<h3 style="font-family: var(--font-serif); font-size: 1.45rem; margin: 2rem 0 0.85rem 0; color: var(--text-main);">${trimmed.replace(/^###\s*/, "")}</h3>`;
+          }
+          if (trimmed.startsWith("##")) {
+            return `<h2 style="font-family: var(--font-serif); font-size: 1.85rem; margin: 2.25rem 0 1.15rem 0; color: var(--text-main);">${trimmed.replace(/^##\s*/, "")}</h2>`;
+          }
+          return `<p>${trimmed.replace(/\n/g, "<br>")}</p>`;
+        })
+        .join("");
+      detailBody.innerHTML = paragraphs;
+    }
+
+    // Author bio footer card
+    const bioAvatar = document.getElementById("detailBioAvatar");
+    const bioName = document.getElementById("detailBioName");
+    const bioRole = document.getElementById("detailBioRole");
+
+    if (bioAvatar) bioAvatar.src = authorData.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80";
+    if (bioName) bioName.textContent = `Written by ${authorData.name || "Author"}`;
+    if (bioRole) bioRole.textContent = `${authorData.role || "Contributing Writer"} sharing perspectives on mindful living, creative pursuits, and slow journalism on BlogSpace.`;
+
+    // Reveal article and hide loading
+    if (loadingEl) loadingEl.style.display = "none";
+    if (contentEl) contentEl.style.display = "block";
+    initLucideIcons();
+  } catch (err) {
+    console.error("Error loading blog details from database:", err);
+    showError("Error Retrieving Story", err.message || "Failed to load the requested story from the database.");
+  }
+}
+
+function shareCurrentStory() {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      showToast("Link Copied", "Story URL copied to your clipboard.", "success");
+    }).catch(() => {
+      showToast("Share Story", window.location.href, "info");
+    });
+  } else {
+    showToast("Share Story", window.location.href, "info");
+  }
+}
+
 // --- Global Initialization on DOM Ready ---
 document.addEventListener("DOMContentLoaded", () => {
   initStorage();
@@ -1976,6 +1735,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initDashboardPage();
   } else if (path.endsWith("create-blog.html")) {
     initEditorPage();
+  } else if (path.endsWith("blog-details.html") || document.getElementById("blogDetailsContent")) {
+    initBlogDetailsPage();
   } else {
     initHomePage();
   }

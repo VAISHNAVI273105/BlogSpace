@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const db = require('../data/db');
+const User = require('../models/User');
 const authenticateToken = require('../middleware/auth');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'blogspace_super_secret_jwt_key_2026_earthy_luxe';
@@ -16,22 +15,24 @@ function isValidEmail(email) {
 
 /**
  * @route   POST /api/auth/register
- * @desc    Register a new user with bcrypt password hashing
+ * @desc    Register a new user with bcrypt password hashing in MongoDB
  * @access  Public
  */
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, username, email, password } = req.body;
+
+    const displayName = (name || username || '').trim();
 
     // Field presence and format validation
-    if (!name || typeof name !== 'string' || !name.trim()) {
+    if (!displayName) {
       return res.status(400).json({
         success: false,
-        message: 'Full Name is required and must be valid text.'
+        message: 'Full Name or Username is required and must be valid text.'
       });
     }
 
-    if (name.trim().length < 2) {
+    if (displayName.length < 2) {
       return res.status(400).json({
         success: false,
         message: 'Full Name must be at least 2 characters long.'
@@ -67,10 +68,8 @@ router.post('/register', async (req, res) => {
       });
     }
 
-    const users = db.getUsers();
-
-    // Duplicate email check
-    const existingUser = users.find(u => u.email.toLowerCase() === normalizedEmail);
+    // Duplicate email check in MongoDB
+    const existingUser = await User.findOne({ email: normalizedEmail });
     if (existingUser) {
       return res.status(409).json({
         success: false,
@@ -78,28 +77,22 @@ router.post('/register', async (req, res) => {
       });
     }
 
-    // Hash password with bcryptjs
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    // Create safe user entity
-    const newUser = {
-      id: 'user_' + Date.now(),
-      name: name.trim(),
+    // Create user model instance (password is automatically hashed via Mongoose pre-save hook)
+    const newUser = new User({
+      name: displayName,
+      username: (username || displayName).toLowerCase().replace(/[^a-z0-9]/g, '_'),
       email: normalizedEmail,
-      password: hashedPassword,
+      password: password,
       role: 'Contributing Writer',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-      createdAt: new Date().toISOString()
-    };
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
+    });
 
-    users.push(newUser);
-    db.saveUsers(users);
+    await newUser.save();
 
     // Generate JWT token upon registration
     const token = jwt.sign(
       {
-        id: newUser.id,
+        id: newUser._id.toString(),
         email: newUser.email,
         name: newUser.name,
         role: newUser.role
@@ -108,17 +101,20 @@ router.post('/register', async (req, res) => {
       { expiresIn: JWT_EXPIRES_IN }
     );
 
-    // Safe user projection (excluding password)
-    const { password: _, ...safeUser } = newUser;
-
     return res.status(201).json({
       success: true,
       message: 'Registration successful! Your author membership is now active.',
-      user: safeUser,
+      user: newUser.toJSON(),
       token
     });
   } catch (err) {
     console.error('Registration error:', err);
+    if (err.code === 11000) {
+      return res.status(409).json({
+        success: false,
+        message: 'An account with this email address already exists. Please sign in.'
+      });
+    }
     return res.status(500).json({
       success: false,
       message: 'An internal server error occurred during registration.'
@@ -128,7 +124,7 @@ router.post('/register', async (req, res) => {
 
 /**
  * @route   POST /api/auth/login
- * @desc    Authenticate user using bcrypt password comparison and issue JWT
+ * @desc    Authenticate user from MongoDB using bcrypt password comparison and issue JWT
  * @access  Public
  */
 router.post('/login', async (req, res) => {
@@ -143,9 +139,9 @@ router.post('/login', async (req, res) => {
     }
 
     const normalizedEmail = email.trim().toLowerCase();
-    const users = db.getUsers();
 
-    const user = users.find(u => u.email.toLowerCase() === normalizedEmail);
+    // Find user in MongoDB
+    const user = await User.findOne({ email: normalizedEmail });
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -154,7 +150,7 @@ router.post('/login', async (req, res) => {
     }
 
     // Secure bcrypt password verification
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res.status(401).json({
         success: false,
@@ -165,7 +161,7 @@ router.post('/login', async (req, res) => {
     // Generate JWT token with user payload
     const token = jwt.sign(
       {
-        id: user.id,
+        id: user._id.toString(),
         email: user.email,
         name: user.name,
         role: user.role
@@ -174,13 +170,10 @@ router.post('/login', async (req, res) => {
       { expiresIn: JWT_EXPIRES_IN }
     );
 
-    // Safe user projection
-    const { password: _, ...safeUser } = user;
-
     return res.status(200).json({
       success: true,
       message: 'Sign-in successful. Welcome back to your studio.',
-      user: safeUser,
+      user: user.toJSON(),
       token
     });
   } catch (err) {
@@ -194,13 +187,12 @@ router.post('/login', async (req, res) => {
 
 /**
  * @route   GET /api/auth/me
- * @desc    Verify current session and return user profile
+ * @desc    Verify current session and return user profile from MongoDB
  * @access  Private (Requires JWT)
  */
-router.get('/me', authenticateToken, (req, res) => {
+router.get('/me', authenticateToken, async (req, res) => {
   try {
-    const users = db.getUsers();
-    const user = users.find(u => u.id === req.user.id);
+    const user = await User.findById(req.user.id);
 
     if (!user) {
       return res.status(404).json({
@@ -209,10 +201,9 @@ router.get('/me', authenticateToken, (req, res) => {
       });
     }
 
-    const { password: _, ...safeUser } = user;
     return res.status(200).json({
       success: true,
-      user: safeUser
+      user: user.toJSON()
     });
   } catch (err) {
     return res.status(500).json({

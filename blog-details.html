@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Details – BlogSpace Editorial</title>
+  <meta name="description" content="Read full editorial essay on BlogSpace.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- =========================================================================
+       EDITORIAL NAVIGATION
+       ========================================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="BlogSpace Home">
+        <div class="brand-logo-icon">
+          <i data-lucide="feather"></i>
+        </div>
+        <span>Blog<span class="highlight">Space</span></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Journal</a>
+        <a href="index.html#exploreSection" class="nav-link">Explore Stories</a>
+        <a href="index.html#categoriesSection" class="nav-link">Categories</a>
+        <a href="index.html#highlightSection" class="nav-link">Editorial</a>
+        <a href="index.html#aboutSection" class="nav-link">About</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="login.html" class="nav-link">Sign In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+
+      <button class="mobile-nav-toggle" aria-label="Toggle Navigation Menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+
+    <div class="mobile-nav-menu">
+      <a href="index.html" class="nav-link">Journal</a>
+      <a href="index.html#exploreSection" class="nav-link">Explore Stories</a>
+      <a href="index.html#categoriesSection" class="nav-link">Categories</a>
+      <a href="index.html#highlightSection" class="nav-link">Editorial</a>
+      <a href="index.html#aboutSection" class="nav-link">About</a>
+      <div class="mobile-actions">
+        <a href="login.html" class="btn btn-outline btn-block">Sign In</a>
+        <a href="register.html" class="btn btn-primary btn-block">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       MAIN BLOG DETAILS CONTENT
+       ========================================================================= -->
+  <main class="blog-details-section">
+    <div class="container blog-details-wrapper">
+      
+      <!-- Back Link -->
+      <a href="index.html#exploreSection" class="back-link">
+        <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i>
+        <span>Back to All Stories</span>
+      </a>
+
+      <!-- State 1: Loading State -->
+      <div id="blogDetailsLoading" class="state-box">
+        <div class="loading-spinner-editorial"></div>
+        <h2>Loading Story</h2>
+        <p>Retrieving full manuscript from MongoDB...</p>
+      </div>
+
+      <!-- State 2: Error / Unavailable State -->
+      <div id="blogDetailsError" class="state-box" style="display: none;">
+        <div class="state-box-icon">
+          <i data-lucide="alert-circle"></i>
+        </div>
+        <h2 id="blogErrorTitle">Story Not Found</h2>
+        <p id="blogErrorDesc">The essay you requested could not be located in the database. It may have been archived, deleted, or the identifier is invalid.</p>
+        <div>
+          <a href="index.html#exploreSection" class="btn btn-primary">
+            <i data-lucide="compass"></i> Browse All Stories
+          </a>
+        </div>
+      </div>
+
+      <!-- State 3: Blog Article Content -->
+      <article id="blogDetailsContent" class="blog-details-card" style="display: none;">
+        
+        <!-- Metadata Header -->
+        <div class="blog-details-meta">
+          <span class="badge" id="detailCategoryBadge">Lifestyle</span>
+          <span class="meta-date" id="detailDate">Nov 14, 2026</span>
+          <span class="dot">&bull;</span>
+          <span class="meta-date" id="detailReadTime">4 min read</span>
+          <span class="dot">&bull;</span>
+          <span class="meta-date" id="detailViews">0 views</span>
+        </div>
+
+        <!-- Article Title -->
+        <h1 class="blog-details-title" id="detailTitle">Editorial Title</h1>
+
+        <!-- Author Information Bar -->
+        <div class="blog-details-author-bar">
+          <div class="author-info">
+            <img src="" alt="Author Avatar" class="author-avatar" id="detailAuthorAvatar">
+            <div>
+              <div class="author-name" id="detailAuthorName" style="font-weight: 600; font-size: 1rem; color: var(--text-main);">Author Name</div>
+              <div class="author-role" id="detailAuthorRole" style="font-size: 0.85rem; color: var(--secondary-text);">Author Role</div>
+            </div>
+          </div>
+          <button class="btn btn-outline btn-sm" id="shareStoryBtn" onclick="shareCurrentStory()">
+            <i data-lucide="share-2" style="width: 15px; height: 15px;"></i>
+            <span>Share Story</span>
+          </button>
+        </div>
+
+        <!-- Hero Cover Image -->
+        <div class="blog-details-cover-wrap" id="detailCoverWrap">
+          <img src="" alt="" id="detailCoverImg">
+        </div>
+
+        <!-- Full Story Body Content -->
+        <div class="blog-details-body" id="detailBody">
+          <!-- Dynamically inserted formatted paragraphs -->
+        </div>
+
+        <!-- Author Bio Footer Box -->
+        <div class="blog-details-footer-bio">
+          <img src="" alt="" id="detailBioAvatar">
+          <div>
+            <h4 id="detailBioName">Written by Author</h4>
+            <p id="detailBioRole">Contributing essayist sharing perspectives on mindful living, creative pursuits, and slow journalism on BlogSpace.</p>
+          </div>
+        </div>
+
+      </article>
+
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <a href="index.html" class="brand-logo">
+            <div class="brand-logo-icon">
+              <i data-lucide="feather"></i>
+            </div>
+            <span>Blog<span class="highlight" style="color: var(--warm-beige);">Space</span></span>
+          </a>
+          <p class="footer-desc">
+            A boutique editorial publishing journal celebrating quiet crafts, honest storytelling, and everyday discoveries.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">The Journal</a></li>
+            <li><a href="index.html#exploreSection">Explore Stories</a></li>
+            <li><a href="dashboard.html">Author Studio</a></li>
+            <li><a href="create-blog.html">Write a Story</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html#exploreSection">Lifestyle</a></li>
+            <li><a href="index.html#exploreSection">Beauty</a></li>
+            <li><a href="index.html#exploreSection">Fashion</a></li>
+            <li><a href="index.html#exploreSection">Food</a></li>
+            <li><a href="index.html#exploreSection">Travel</a></li>
+            <li><a href="index.html#exploreSection">Creativity</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col footer-newsletter">
+          <h4>Sunday Journal Digest</h4>
+          <p>Receive our most resonant essays and studio notes in your inbox every Sunday morning.</p>
+          <form class="newsletter-form" id="newsletterForm">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required>
+            <button type="submit" class="btn btn-secondary btn-sm" aria-label="Subscribe">
+              <i data-lucide="send"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <div>&copy; 2026 BlogSpace. All rights reserved. Earthy Luxe Editorial Design.</div>
+        <div>Connected to MongoDB via Mongoose.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

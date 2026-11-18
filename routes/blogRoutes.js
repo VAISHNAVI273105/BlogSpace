@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../data/db');
+const mongoose = require('mongoose');
+const Blog = require('../models/Blog');
 const authenticateToken = require('../middleware/auth');
 
 // Calculate reading time
@@ -10,13 +11,6 @@ function calculateReadTime(text) {
   return `${minutes} min read`;
 }
 
-// Format human date
-function getFormattedDateNow() {
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const d = new Date();
-  return `${months[d.getMonth()]} ${String(d.getDate()).padStart(2, '0')}, ${d.getFullYear()}`;
-}
-
 // Sanitize string helper
 function sanitizeString(str) {
   if (typeof str !== 'string') return '';
@@ -24,67 +18,100 @@ function sanitizeString(str) {
 }
 
 /**
+ * Helper to find a blog by ObjectId, slug, or custom id
+ */
+async function findBlogByIdOrSlug(idParam) {
+  if (!idParam) return null;
+
+  if (mongoose.Types.ObjectId.isValid(idParam)) {
+    const blog = await Blog.findById(idParam);
+    if (blog) return blog;
+  }
+
+  // Fallback to slug search
+  let blog = await Blog.findOne({ slug: idParam });
+  if (blog) return blog;
+
+  // Fallback to case-insensitive slug or title match
+  blog = await Blog.findOne({
+    $or: [
+      { slug: new RegExp(`^${idParam}$`, 'i') },
+      { title: new RegExp(idParam.replace(/[-_]/g, ' '), 'i') }
+    ]
+  });
+  return blog;
+}
+
+/**
  * @route   GET /api/blogs
- * @desc    Get all blogs with optional filtering & search
+ * @desc    Get all blogs from MongoDB with optional filtering & search
  * @access  Public
  */
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    let blogs = db.getBlogs();
     const { category, status, search, authorId } = req.query;
+    const filter = {};
 
     if (status && status !== 'all') {
-      blogs = blogs.filter(b => b.status === status);
+      filter.status = status;
     }
 
     if (category && category !== 'all') {
-      blogs = blogs.filter(b => b.category.toLowerCase() === category.toLowerCase());
+      filter.category = new RegExp(`^${category.trim()}$`, 'i');
     }
 
     if (authorId) {
-      blogs = blogs.filter(b => b.authorId === authorId);
+      filter.authorId = authorId;
     }
 
-    if (search) {
-      const q = search.toLowerCase().trim();
-      blogs = blogs.filter(b => 
-        b.title.toLowerCase().includes(q) || 
-        b.category.toLowerCase().includes(q) ||
-        (b.excerpt && b.excerpt.toLowerCase().includes(q))
-      );
+    if (search && search.trim()) {
+      const q = search.trim();
+      filter.$or = [
+        { title: { $regex: q, $options: 'i' } },
+        { category: { $regex: q, $options: 'i' } },
+        { excerpt: { $regex: q, $options: 'i' } }
+      ];
     }
+
+    const blogs = await Blog.find(filter).sort({ createdAt: -1 });
 
     return res.status(200).json({
       success: true,
       count: blogs.length,
-      blogs
+      blogs: blogs.map(b => b.toJSON())
     });
   } catch (err) {
     console.error('Fetch blogs error:', err);
     return res.status(500).json({
       success: false,
-      message: 'Server error retrieving stories.'
+      message: 'Server error retrieving stories from database.'
     });
   }
 });
 
 /**
  * @route   GET /api/blogs/stats
- * @desc    Get dashboard metrics (total, published, drafts, views)
+ * @desc    Get dashboard metrics from MongoDB (total, published, drafts, views)
  * @access  Public
  */
-router.get('/stats', (req, res) => {
+router.get('/stats', async (req, res) => {
   try {
-    const blogs = db.getBlogs();
     const { authorId } = req.query;
+    const filter = {};
+    if (authorId) {
+      filter.authorId = authorId;
+    }
 
-    // Optional filter by author if authorId provided
-    const targetBlogs = authorId ? blogs.filter(b => b.authorId === authorId) : blogs;
+    const total = await Blog.countDocuments(filter);
+    const published = await Blog.countDocuments({ ...filter, status: 'published' });
+    const drafts = await Blog.countDocuments({ ...filter, status: 'draft' });
 
-    const total = targetBlogs.length;
-    const published = targetBlogs.filter(b => b.status === 'published').length;
-    const drafts = targetBlogs.filter(b => b.status === 'draft').length;
-    const views = targetBlogs.reduce((acc, b) => acc + (b.views || 0), 0);
+    // Sum all views using aggregation
+    const viewsAgg = await Blog.aggregate([
+      { $match: filter },
+      { $group: { _id: null, totalViews: { $sum: '$views' } } }
+    ]);
+    const views = viewsAgg.length > 0 ? viewsAgg[0].totalViews : 0;
 
     return res.status(200).json({
       success: true,
@@ -96,6 +123,7 @@ router.get('/stats', (req, res) => {
       }
     });
   } catch (err) {
+    console.error('Stats calculation error:', err);
     return res.status(500).json({
       success: false,
       message: 'Server error calculating dashboard statistics.'
@@ -105,13 +133,12 @@ router.get('/stats', (req, res) => {
 
 /**
  * @route   GET /api/blogs/:id
- * @desc    Get single blog by ID
+ * @desc    Get single blog by MongoDB ID or slug
  * @access  Public
  */
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const blogs = db.getBlogs();
-    const blog = blogs.find(b => b.id === req.params.id);
+    const blog = await findBlogByIdOrSlug(req.params.id);
 
     if (!blog) {
       return res.status(404).json({
@@ -122,9 +149,10 @@ router.get('/:id', (req, res) => {
 
     return res.status(200).json({
       success: true,
-      blog
+      blog: blog.toJSON()
     });
   } catch (err) {
+    console.error('Retrieve blog error:', err);
     return res.status(500).json({
       success: false,
       message: 'Server error retrieving story.'
@@ -134,10 +162,10 @@ router.get('/:id', (req, res) => {
 
 /**
  * @route   POST /api/blogs
- * @desc    Create a new blog story
+ * @desc    Create a new blog story permanently in MongoDB
  * @access  Private (Requires JWT token)
  */
-router.post('/', authenticateToken, (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
   try {
     const { title, category, excerpt, coverImage, content, status } = req.body;
 
@@ -145,6 +173,8 @@ router.post('/', authenticateToken, (req, res) => {
     const cleanTitle = sanitizeString(title);
     const cleanCategory = sanitizeString(category);
     const cleanContent = sanitizeString(content);
+    const cleanExcerpt = sanitizeString(excerpt);
+    const cleanCoverImage = sanitizeString(coverImage);
 
     if (!cleanTitle || cleanTitle.length < 3) {
       return res.status(400).json({
@@ -167,18 +197,15 @@ router.post('/', authenticateToken, (req, res) => {
       });
     }
 
-    const blogs = db.getBlogs();
     const targetStatus = status === 'draft' ? 'draft' : 'published';
     const fallbackCover = 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80';
 
     // The author is bound directly to the verified authenticated user token
-    const newBlog = {
-      id: 'blog_' + Date.now(),
+    const newBlog = new Blog({
       title: cleanTitle,
-      slug: cleanTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
       category: cleanCategory,
-      excerpt: excerpt && excerpt.trim() ? excerpt.trim() : cleanContent.substring(0, 140) + '...',
-      coverImage: coverImage && coverImage.trim() ? coverImage.trim() : fallbackCover,
+      excerpt: cleanExcerpt || cleanContent.substring(0, 140) + '...',
+      coverImage: cleanCoverImage || fallbackCover,
       content: cleanContent,
       authorId: req.user.id,
       author: {
@@ -186,62 +213,57 @@ router.post('/', authenticateToken, (req, res) => {
         role: req.user.role || 'Essayist',
         avatar: req.user.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
       },
-      date: getFormattedDateNow(),
-      readTime: calculateReadTime(cleanContent),
       status: targetStatus,
-      views: targetStatus === 'published' ? Math.floor(Math.random() * 30) + 1 : 0,
-      createdAt: new Date().toISOString()
-    };
+      views: targetStatus === 'published' ? Math.floor(Math.random() * 30) + 1 : 0
+    });
 
-    blogs.unshift(newBlog);
-    db.saveBlogs(blogs);
+    await newBlog.save();
 
     return res.status(201).json({
       success: true,
-      message: targetStatus === 'published' 
-        ? 'Story published to the global circle.' 
+      message: targetStatus === 'published'
+        ? 'Story published to the global circle.'
         : 'Draft manuscript preserved in your studio.',
-      blog: newBlog
+      blog: newBlog.toJSON()
     });
   } catch (err) {
     console.error('Create blog error:', err);
     return res.status(500).json({
       success: false,
-      message: 'Server error creating story.'
+      message: 'Server error creating story in database.'
     });
   }
 });
 
 /**
  * @route   PUT /api/blogs/:id
- * @desc    Update existing blog story
+ * @desc    Update existing blog story in MongoDB
  * @access  Private (Requires JWT token & author ownership)
  */
-router.put('/:id', authenticateToken, (req, res) => {
+router.put('/:id', authenticateToken, async (req, res) => {
   try {
     const { title, category, excerpt, coverImage, content, status } = req.body;
-    const blogs = db.getBlogs();
 
-    const index = blogs.findIndex(b => b.id === req.params.id);
-    if (index === -1) {
+    const blog = await findBlogByIdOrSlug(req.params.id);
+
+    if (!blog) {
       return res.status(404).json({
         success: false,
         message: 'Story not found.'
       });
     }
 
-    const current = blogs[index];
-
     // Authorization check: User must be author or Admin
-    if (current.authorId && current.authorId !== req.user.id && req.user.role !== 'Admin') {
+    const blogAuthorIdStr = blog.authorId ? blog.authorId.toString() : '';
+    if (blogAuthorIdStr && blogAuthorIdStr !== req.user.id && req.user.role !== 'Admin') {
       return res.status(403).json({
         success: false,
         message: 'Access forbidden. You do not have permission to modify this story.'
       });
     }
 
-    const updatedContent = content !== undefined ? sanitizeString(content) : current.content;
-    const updatedTitle = title !== undefined ? sanitizeString(title) : current.title;
+    const updatedContent = content !== undefined ? sanitizeString(content) : blog.content;
+    const updatedTitle = title !== undefined ? sanitizeString(title) : blog.title;
 
     if (title !== undefined && (!updatedTitle || updatedTitle.length < 3)) {
       return res.status(400).json({
@@ -250,25 +272,25 @@ router.put('/:id', authenticateToken, (req, res) => {
       });
     }
 
-    const updatedBlog = {
-      ...current,
-      title: updatedTitle,
-      category: category !== undefined ? sanitizeString(category) : current.category,
-      excerpt: excerpt !== undefined ? sanitizeString(excerpt) : current.excerpt,
-      coverImage: coverImage !== undefined ? sanitizeString(coverImage) : current.coverImage,
-      content: updatedContent,
-      readTime: calculateReadTime(updatedContent),
-      status: status !== undefined ? status : current.status,
-      updatedAt: new Date().toISOString()
-    };
+    if (title !== undefined) {
+      blog.title = updatedTitle;
+      blog.slug = updatedTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+    if (category !== undefined) blog.category = sanitizeString(category);
+    if (excerpt !== undefined) blog.excerpt = sanitizeString(excerpt);
+    if (coverImage !== undefined) blog.coverImage = sanitizeString(coverImage);
+    if (content !== undefined) {
+      blog.content = updatedContent;
+      blog.readTime = calculateReadTime(updatedContent);
+    }
+    if (status !== undefined) blog.status = status;
 
-    blogs[index] = updatedBlog;
-    db.saveBlogs(blogs);
+    await blog.save();
 
     return res.status(200).json({
       success: true,
       message: 'Story successfully updated.',
-      blog: updatedBlog
+      blog: blog.toJSON()
     });
   } catch (err) {
     console.error('Update blog error:', err);
@@ -281,13 +303,12 @@ router.put('/:id', authenticateToken, (req, res) => {
 
 /**
  * @route   DELETE /api/blogs/:id
- * @desc    Delete a blog story
+ * @desc    Delete a blog story permanently from MongoDB
  * @access  Private (Requires JWT token & author ownership)
  */
-router.delete('/:id', authenticateToken, (req, res) => {
+router.delete('/:id', authenticateToken, async (req, res) => {
   try {
-    let blogs = db.getBlogs();
-    const blog = blogs.find(b => b.id === req.params.id);
+    const blog = await findBlogByIdOrSlug(req.params.id);
 
     if (!blog) {
       return res.status(404).json({
@@ -297,15 +318,15 @@ router.delete('/:id', authenticateToken, (req, res) => {
     }
 
     // Authorization check: User must be author or Admin
-    if (blog.authorId && blog.authorId !== req.user.id && req.user.role !== 'Admin') {
+    const blogAuthorIdStr = blog.authorId ? blog.authorId.toString() : '';
+    if (blogAuthorIdStr && blogAuthorIdStr !== req.user.id && req.user.role !== 'Admin') {
       return res.status(403).json({
         success: false,
         message: 'Access forbidden. You do not have permission to delete this story.'
       });
     }
 
-    blogs = blogs.filter(b => b.id !== req.params.id);
-    db.saveBlogs(blogs);
+    await Blog.deleteOne({ _id: blog._id });
 
     return res.status(200).json({
       success: true,

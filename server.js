@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const { connectDB, isDBConnected } = require('./config/db');
 
 const authRoutes = require('./routes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes');
@@ -30,7 +31,8 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({
     status: 'ok',
     service: 'BlogSpace Editorial REST API',
-    version: '1.0.0',
+    database: isDBConnected() ? 'connected' : 'disconnected',
+    version: '2.0.0',
     timestamp: new Date().toISOString()
   });
 });
@@ -72,28 +74,38 @@ app.use((err, req, res, next) => {
 });
 
 // --- 4. Start Server ---
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`
+async function startServer() {
+  await connectDB();
+
+  if (require.main === module) {
+    app.listen(PORT, () => {
+      console.log(`
 =============================================================
-  🌿 BLOGSPACE – Backend REST API Server is Live
+  🌿 BLOGSPACE – MongoDB-Backed REST API Server is Live
 =============================================================
   Port:        http://localhost:${PORT}
   Health:      http://localhost:${PORT}/api/health
   API Base:    http://localhost:${PORT}/api
+  Database:    MongoDB (Mongoose ODM)
   
   Endpoints Available:
-  - POST   /api/auth/register    Register a new user
-  - POST   /api/auth/login       User sign-in & token
+  - POST   /api/auth/register    Register a new user in MongoDB
+  - POST   /api/auth/login       User sign-in & JWT token
+  - GET    /api/auth/me          Current authenticated session
   - GET    /api/blogs            List all blogs (filter & search)
   - POST   /api/blogs            Create a new blog story
-  - GET    /api/blogs/:id        Fetch single blog
-  - PUT    /api/blogs/:id        Update existing blog
-  - DELETE /api/blogs/:id        Remove a blog story
-  - GET    /api/blogs/stats      Fetch live dashboard stats
+  - GET    /api/blogs/:id        Fetch single blog by MongoDB ID
+  - PUT    /api/blogs/:id        Update existing blog story
+  - DELETE /api/blogs/:id        Remove blog permanently
+  - GET    /api/blogs/stats      Live dashboard metrics
 =============================================================
 `);
-  });
+    });
+  }
+}
+
+if (require.main === module) {
+  startServer();
 }
 
 module.exports = app;
