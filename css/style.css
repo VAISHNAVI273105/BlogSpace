@@ -605,6 +605,7 @@ select.form-control {
 }
 
 /* User chip in navbar */
+<<<<<<< HEAD
 .api-status-pill {
   display: inline-flex;
   align-items: center;
@@ -645,6 +646,8 @@ select.form-control {
   background: var(--white-cream);
 }
 
+=======
+>>>>>>> ddf578e9a410839e5e52abdef62c95f14136e3b5
 .nav-user-chip {
   display: flex;
   align-items: center;
