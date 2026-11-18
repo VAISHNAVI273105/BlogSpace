@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In – BlogSpace Editorial Studio</title>
+  <meta name="description" content="Return to your quiet writing studio on BlogSpace. Continue crafting stories that endure.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="auth-page-wrapper">
+    <!-- =======================================================================
+         LEFT SECTION: WARM EDITORIAL SHOWCASE
+         ======================================================================= -->
+    <div class="auth-showcase-side">
+      <!-- Top Brand Logo -->
+      <a href="index.html" class="brand-logo">
+        <div class="brand-logo-icon">
+          <i data-lucide="feather"></i>
+        </div>
+        <span>Blog<span class="highlight">Space</span></span>
+      </a>
+
+      <!-- Middle Content -->
+      <div class="auth-showcase-content">
+        <h1>Welcome Back to <br><span class="highlight">Your Story.</span></h1>
+        <p>
+          Step into your distraction-free writing sanctuary. Review your drafts, explore thoughtful reader responses, and continue crafting your next chapter.
+        </p>
+
+        <!-- Editorial Visual Frame -->
+        <div class="auth-editorial-img-box">
+          <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=700&q=80" alt="Morning coffee and journal on linen">
+        </div>
+
+        <div class="auth-feature-pills">
+          <div class="auth-feature-item">
+            <div class="check-icon"><i data-lucide="check" style="width: 14px; height: 14px;"></i></div>
+            <span>Tactile Markdown writing canvas designed for flow</span>
+          </div>
+          <div class="auth-feature-item">
+            <div class="check-icon"><i data-lucide="check" style="width: 14px; height: 14px;"></i></div>
+            <span>Local draft persistence with zero tracking cookies</span>
+          </div>
+          <div class="auth-feature-item">
+            <div class="check-icon"><i data-lucide="check" style="width: 14px; height: 14px;"></i></div>
+            <span>A dedicated circle of intentional, appreciative readers</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial -->
+      <div class="auth-testimonial-box">
+        <p>"Writing on BlogSpace feels as meditative as journaling on fine handmade paper. The peace of mind is unmatched."</p>
+        <div class="auth-testimonial-author">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80" alt="Camille Laurent">
+          <div>
+            <h5>Camille Laurent</h5>
+            <span>Creative Director &amp; Essayist</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         RIGHT SECTION: CLEAN EDITORIAL LOGIN FORM
+         ======================================================================= -->
+    <div class="auth-form-side">
+      <div class="auth-form-container">
+        
+        <div class="auth-header">
+          <h2>Enter Your Studio</h2>
+          <p>Sign in to manage your published stories and creative drafts.</p>
+        </div>
+
+        <!-- Quick 1-Click Demo Credentials Autofill Banner -->
+        <div class="demo-credentials-banner">
+          <div class="demo-info">
+            <strong>Evaluator Access:</strong>
+            alex@blogspace.io &bull; password123
+          </div>
+          <button type="button" class="demo-fill-btn" id="demoFillBtn">
+            Auto Fill
+          </button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" novalidate>
+          <!-- Email Input -->
+          <div class="form-group">
+            <label for="loginEmail" class="form-label">Email Address <span class="req">*</span></label>
+            <div class="input-icon-wrapper">
+              <span class="input-icon-left"><i data-lucide="mail" style="width: 17px; height: 17px;"></i></span>
+              <input 
+                type="email" 
+                id="loginEmail" 
+                class="form-control" 
+                placeholder="name@domain.com" 
+                autocomplete="email"
+                required
+              >
+            </div>
+            <div class="form-error-msg"></div>
+          </div>
+
+          <!-- Password Input -->
+          <div class="form-group">
+            <label for="loginPassword" class="form-label">Password <span class="req">*</span></label>
+            <div class="input-icon-wrapper">
+              <span class="input-icon-left"><i data-lucide="lock" style="width: 17px; height: 17px;"></i></span>
+              <input 
+                type="password" 
+                id="loginPassword" 
+                class="form-control" 
+                placeholder="Enter your password" 
+                autocomplete="current-password"
+                required
+              >
+              <button type="button" class="password-toggle-btn" id="togglePasswordBtn" aria-label="Toggle password visibility">
+                <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+              </button>
+            </div>
+            <div class="form-error-msg"></div>
+          </div>
+
+          <!-- Remember Me & Forgot Password -->
+          <div class="auth-links-row">
+            <label class="form-checkbox-label">
+              <input type="checkbox" id="rememberMe">
+              <span>Remember this session</span>
+            </label>
+            <a href="javascript:void(0)" class="auth-forgot-link" onclick="showToast('Password Reminder', 'In demo mode, please use password: password123', 'info')">
+              Forgot password?
+            </a>
+          </div>
+
+          <!-- Submit Button (Deep Burgundy) -->
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="loginSubmitBtn">
+            <i data-lucide="log-in"></i> Sign In to Studio
+          </button>
+        </form>
+
+        <!-- Switch to Register Link -->
+        <p class="auth-switch-text">
+          Not yet a member of our circle? <a href="register.html">Create your account</a>
+        </p>
+
+        <!-- Back to Home -->
+        <div style="text-align: center; margin-top: 1.75rem;">
+          <a href="index.html" class="nav-link" style="font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.35rem;">
+            <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i> Return to the Journal
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+[
+  {
+    "id": "blog_1",
+    "title": "The Art of Intentional Living: Cultivating Stillness in Everyday Rituals",
+    "slug": "art-of-intentional-living",
+    "category": "Lifestyle",
+    "coverImage": "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
+    "excerpt": "Why the quietest morning moments—a poured cup of tea, open linen pages, and soft natural sunlight—shape our creative resilience.",
+    "content": "We live in an era that ceaselessly demands acceleration. We are nudged to wake up with urgency, consume opinions before our feet touch the floor, and measure the value of a day strictly by its output.\n\nYet true inspiration has always demanded an opposite posture: deliberate stillness.\n\nWhen we create morning rituals grounded in tactile presence—the warmth of a handcrafted ceramic mug, the slow drift of sunlight across linen curtains, the unhurried texture of physical paper—we give our minds permission to synthesize rather than react.\n\nSlow living is not an abandonment of ambition. It is the conscious decision to anchor your days in presence, so that whatever you choose to write, create, or speak carries genuine depth.",
+    "author": {
+      "name": "Alex Morgan",
+      "role": "Editor-in-Chief",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+    },
+    "date": "Nov 14, 2026",
+    "readTime": "4 min read",
+    "status": "published",
+    "views": 1820,
+    "authorId": "user_demo_1"
+  },
+  {
+    "id": "blog_2",
+    "title": "Gentle Formulations: Why Minimalist Skincare is the Future of Well-Being",
+    "slug": "gentle-formulations-minimalist-skincare",
+    "category": "Beauty",
+    "coverImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80",
+    "excerpt": "Returning to botanicals, cold-pressed seed oils, and simplified routines that honor the skin's natural lipid barrier.",
+    "content": "For years, the beauty industry convinced us that ten-step regimens and harsh synthetic exfoliants were prerequisites for healthy skin. In reality, modern dermatology and ancient herbalism agree on a simpler truth: restraint is restorative.\n\nBy turning to cold-pressed botanical oils like camellia and jojoba, raw squalane, and soothing floral waters, we allow the skin barrier to recalibrate.\n\nA mindful routine isn't just about topical nourishment—it is five minutes at dusk where you look in the mirror with gratitude rather than correction.",
+    "author": {
+      "name": "Camille Laurent",
+      "role": "Wellness Editor",
+      "avatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80"
+    },
+    "date": "Nov 12, 2026",
+    "readTime": "5 min read",
+    "status": "published",
+    "views": 1240,
+    "authorId": "user_demo_1"
+  },
+  {
+    "id": "blog_3",
+    "title": "The Enduring Elegance of Natural Linen: Timeless Wardrobe Philosophies",
+    "slug": "enduring-elegance-natural-linen",
+    "category": "Fashion",
+    "coverImage": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80",
+    "excerpt": "Embracing natural fibers, imperfect folds, and architectural silhouettes that outlast seasonal fashion cycles.",
+    "content": "There is an understated luxury in natural flax linen that fast fashion can never replicate. It breathes with the body, softens with every wash, and wears its subtle wrinkles as a badge of lived experience.\n\nBuilding an enduring capsule wardrobe requires shedding the illusion that newness equals style.\n\nWhen you invest in honest materials—undyed wools, organic silks, and heavy European linen—clothing ceases to be disposable and becomes a dependable second skin that ages alongside your personal journey.",
+    "author": {
+      "name": "Camille Laurent",
+      "role": "Creative Director",
+      "avatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80"
+    },
+    "date": "Nov 10, 2026",
+    "readTime": "3 min read",
+    "status": "published",
+    "views": 2310,
+    "authorId": "user_demo_1"
+  },
+  {
+    "id": "blog_4",
+    "title": "Morning Bread: The Quiet Meditation of Sourdough & Slow Fermentation",
+    "slug": "morning-bread-sourdough-meditation",
+    "category": "Food",
+    "coverImage": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80",
+    "excerpt": "Flour, spring water, sea salt, and patience. What leaven and sourdough baking taught me about trust and time.",
+    "content": "Baking a true crusty sourdough cannot be rushed by technological efficiency or clever hacks. It listens solely to temperature, wild micro-flora, and gentle dough folds performed across hours.\n\nIn our kitchen, sourdough baking has become an anchor. As you flour the wooden peel and score the loaf with a razor blade, you are practicing an art older than written civilization.\n\nWhen the warm, crackling loaf emerges from the cast-iron Dutch oven, filling the home with toasted caramel aromas, you realize that patience is not passive waiting—it is active reverence.",
+    "author": {
+      "name": "Matteo Rossi",
+      "role": "Culinary Writer",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
+    },
+    "date": "Nov 08, 2026",
+    "readTime": "6 min read",
+    "status": "published",
+    "views": 1950,
+    "authorId": "user_demo_1"
+  },
+  {
+    "id": "blog_5",
+    "title": "Hidden Terracotta Alleys: Solitary Journeys Along the Ligurian Coast",
+    "slug": "terracotta-alleys-ligurian-coast",
+    "category": "Travel",
+    "coverImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=800&q=80",
+    "excerpt": "Stepping off the crowded train platforms into sun-warmed stone stairways, salt breezes, and forgotten coastal sanctuaries.",
+    "content": "Most travelers speed through coastal villages with checklists and selfie sticks. But if you take the narrow, unmarked stone staircase that winds behind the chapel, the tourist clamor evaporates into silence.\n\nAbove the cliffs, olive trees whisper against dry stone terraces built by hand three centuries ago. The sea below is an unblemished deep sapphire, framed by terracotta roofs baked by centuries of Mediterranean sun.\n\nTravel, at its most transformative, is not about cataloging landmarks. It is about allowing an unfamiliar horizon to quiet your internal chatter.",
+    "author": {
+      "name": "Alex Morgan",
+      "role": "Editor-in-Chief",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+    },
+    "date": "Nov 05, 2026",
+    "readTime": "4 min read",
+    "status": "published",
+    "views": 1420,
+    "authorId": "user_demo_1"
+  },
+  {
+    "id": "blog_6",
+    "title": "Finding Form in Raw Earth: Lessons from an Afternoon with Clay",
+    "slug": "finding-form-raw-earth-ceramics",
+    "category": "Creativity",
+    "coverImage": "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=800&q=80",
+    "excerpt": "Why centering clay on a spinning wheel is the most humbling metaphor for creative perseverance and surrender.",
+    "content": "If you try to force raw stoneware clay into a vessel with tense fingers, it will wobble, thin out, and collapse into a wet clump on the wheel head.\n\nThe wheel demands that you breathe, brace your elbows against your ribs, and establish stillness before you ask the clay to rise. You must negotiate with the material, respecting its moisture, grain, and physical thresholds.\n\nEvery creative pursuit shares this principle. You cannot bully an essay or painting into being; you create the conditions for its inherent beauty to emerge.",
+    "author": {
+      "name": "Sofia Berg",
+      "role": "Ceramicist & Naturalist",
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80"
+    },
+    "date": "Nov 03, 2026",
+    "readTime": "5 min read",
+    "status": "published",
+    "views": 1680,
+    "authorId": "user_demo_1"
+  },
+  {
+    "id": "blog_7",
+    "title": "A Return to Paper: Journaling Without the Digital Gaze",
+    "slug": "return-to-paper-journaling",
+    "category": "Lifestyle",
+    "coverImage": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+    "excerpt": "Why handwriting in an unindexed notebook liberates thoughts from the subconscious drive for online performance.",
+    "content": "When you write on a screen connected to the internet, a phantom audience sits over your shoulder. Even in private draft documents, the clean Helvetica typography simulates a published thought.\n\nIn contrast, an analog notebook welcomes ink blots, jagged handwriting, and messy half-sentences. In that unfiltered space, genuine self-reckoning happens.",
+    "author": {
+      "name": "Alex Morgan",
+      "role": "Editor-in-Chief",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+    },
+    "date": "Nov 01, 2026",
+    "readTime": "4 min read",
+    "status": "draft",
+    "views": 210,
+    "authorId": "user_demo_1"
+  },
+  {
+    "id": "blog_8",
+    "title": "The Palette of Nature: Foraging Pigments from Autumn Foliage",
+    "slug": "palette-of-nature-foraging-pigments",
+    "category": "Creativity",
+    "coverImage": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
+    "excerpt": "Extracting ochres, sage greens, and warm berry stains for botanical watercolor studies.",
+    "content": "Notes on gathering wild walnuts, fallen oak galls, and madder roots to craft natural ink and watercolor washes for studio exploration.",
+    "author": {
+      "name": "Sofia Berg",
+      "role": "Ceramicist & Naturalist",
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80"
+    },
+    "date": "Oct 29, 2026",
+    "readTime": "6 min read",
+    "status": "draft",
+    "views": 95,
+    "authorId": "user_demo_1"
+  }
+]

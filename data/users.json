@@ -1,0 +1,11 @@
+[
+  {
+    "id": "user_demo_1",
+    "name": "Alex Morgan",
+    "email": "alex@blogspace.io",
+    "password": "$2b$10$gxt8hiDodoo8bRe1ogXJVe1dRPMF/QsXwma2zwVr9zBPMOeRFXrRO",
+    "role": "Editor-in-Chief & Essayist",
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+    "createdAt": "2026-11-15T00:00:00.000Z"
+  }
+]
